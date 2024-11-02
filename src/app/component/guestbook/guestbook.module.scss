@@ -1,0 +1,245 @@
+.wrapper {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header {
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  .background {
+    height: 100px;
+    width: 100%;
+    background-image: url("../../images/br.jpeg");
+    // background-size: contain;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  @keyframes zoom {
+    0% {
+      transform: scale(0.8) rotate(-5deg);
+    }
+    50% {
+      transform: scale(1) rotate(5deg);
+    }
+    100% {
+      transform: scale(0.8) rotate(-5deg);
+    }
+  }
+
+  .title {
+    position: absolute;
+    left: 270px;
+    animation: zoom 2s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: Brush;
+    font-size: 5rem;
+    font-weight: 200;
+  }
+
+  .img-wrap {
+    max-width: 200px;
+    max-height: 280px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 50px;
+    z-index: 2;
+
+    .img {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-image: url("https://res.cloudinary.com/do6sozxbo/image/upload/v1730383578/wedding5/guest1.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      object-fit: cover;
+      z-index: 3;
+      filter: grayscale(1);
+      position: absolute;
+    }
+
+    .frame {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #333;
+      z-index: 2;
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+    }
+  }
+}
+
+.container {
+  margin-top: 40px;
+  padding: 0 4px;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  input,
+  button,
+  textarea {
+    background-color: transparent;
+    border-radius: 99999px;
+    border: 1px solid #333;
+    height: 40px;
+    padding: 12px 24px;
+    margin-bottom: 12px;
+    outline: none;
+    color: #333;
+    font-size: 2rem;
+    font-family: Text;
+    font-weight: 500;
+  }
+
+  .iwish {
+    border-radius: 24px;
+    height: 160px;
+    font-size: 2rem;
+  }
+
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    overflow-y: hidden;
+  }
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(50px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .emoij {
+    margin: 0 12px;
+    width: 24px;
+    height: 24px;
+
+    animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .radio-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 8px 0px 20px 0;
+    background-color: transparent;
+  }
+
+  label {
+    margin-right: 12px;
+    cursor: pointer;
+    font-family: Text;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .radio {
+    margin: 0;
+    padding: 0;
+    margin-right: 4px;
+    min-width: 16px;
+    min-height: 16px;
+    cursor: pointer;
+  }
+
+  [type="radio"] {
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    transition: border 0.3s ease-in-out;
+  }
+
+  [type="radio"]:checked {
+    border: 4px solid var(--primary);
+  }
+
+  [type="radio"]:focus-visible {
+    outline-offset: max(2px, 0.1em);
+    outline: max(2px, 0.1em) dotted var(--primary);
+  }
+
+  [type="radio"]:hover {
+    box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+    cursor: pointer;
+  }
+
+  [type="radio"]:hover + span {
+    cursor: pointer;
+  }
+
+  [type="radio"]:disabled {
+    background-color: lightgray;
+    box-shadow: none;
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  [type="radio"]:disabled + span {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #33333344;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  scroll-behavior: none;
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 220px;
+  }
+
+  .header .img-wrap {
+    max-width: 150px;
+    max-height: 200px;
+    left: 30px;
+  }
+
+  .header .title {
+    left: 180px;
+  }
+
+  .container {
+    input,
+    button,
+    textarea,
+    .iwish,
+    label,
+    .btn {
+      font-size: 1.6rem;
+    }
+  }
+}

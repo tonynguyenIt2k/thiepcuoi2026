@@ -1,0 +1,35 @@
+.wrapper {
+  max-width: 900px;
+  display: flex;
+  justify-self: center;
+  align-items: flex-start;
+  margin-top: 24px;
+  font-size: 2rem;
+  padding: 50px 50px;
+  text-align: center;
+  background-image: url("../../images/heart.png"), url("../../images/paper.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 200px, cover;
+  background-position: calc(100% - 50px) calc(100% - 50px), center;
+  height: 300px;
+  font-family: Brush;
+  font-size: 3.4rem;
+  word-spacing: 2px;
+  filter: grayscale(1);
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 40px;
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 40px;
+    font-size: 2.3rem;
+    background-position: calc(100% - 20px) calc(100% - 80px), center;
+    background-size: 100px, cover;
+  }
+}

@@ -1,0 +1,49 @@
+.wrapper {
+  max-width: 900px;
+  width: 100%;
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-family: var(--large-font);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.des {
+  margin: 24px 0;
+  max-width: 600px;
+  text-align: center;
+  font-family: Text;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.label {
+  font-family: Untra;
+  font-weight: 600;
+}
+
+.selector {
+  background-color: transparent;
+  padding: 4px 8px;
+  border: 1px solid #333;
+  color: #333;
+  outline: none;
+}
+
+.game {
+  margin-top: 24px;
+}

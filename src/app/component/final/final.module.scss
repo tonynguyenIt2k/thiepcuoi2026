@@ -1,0 +1,162 @@
+.wrapper {
+  margin-top: 24px;
+  max-width: 900px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 3rem;
+  font-family: var(--large-font);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.noise {
+  margin-top: 24px;
+  width: 100%;
+  height: fit-content;
+  position: relative;
+  overflow: hidden;
+
+  @keyframes animateGrain {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    10% {
+      transform: translate(-5%, -10%);
+    }
+    20% {
+      transform: translate(-15%, -20%);
+    }
+    30% {
+      transform: translate(-5%, -10%);
+    }
+    40% {
+      transform: translate(-15%, -20%);
+    }
+
+    50% {
+      transform: translate(-5%, -10%);
+    }
+    60% {
+      transform: translate(-15%, -20%);
+    }
+    70% {
+      transform: translate(-5%, -10%);
+    }
+    80% {
+      transform: translate(-15%, -20%);
+    }
+    90% {
+      transform: translate(-5%, -10%);
+    }
+    100% {
+      transform: translate(-15%, -20%);
+    }
+  }
+
+  &::after {
+    content: "";
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png");
+    // background-size: cover;
+    height: 300%;
+    width: 300%;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    opacity: 0.1;
+    animation: animateGrain 8s steps(10) infinite;
+  }
+}
+
+.imgs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  padding: 24px 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "<<: Và thế giới đã mất đi 1 người cô đơn:>>";
+    color: #fff;
+    font-family: monospace;
+    position: absolute;
+    bottom: 8px;
+    font-size: 1.2rem;
+    letter-spacing: 6px;
+    text-align: center;
+  }
+
+  .img-wrap {
+    // box-sizing: border-box;
+    margin: 12px;
+    max-width: 200px;
+    width: 100%;
+    max-height: 200px;
+    min-height: 200px;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(1);
+  }
+}
+
+.des {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .imgs {
+    flex-wrap: wrap;
+    .img-wrap {
+      min-width: 200px;
+      min-height: 200px;
+      position: relative;
+    }
+  }
+
+  .imgs::before {
+    content: "<<: Và thế giới đã mất";
+    font-size: 0.8rem;
+    letter-spacing: 8px;
+    bottom: 49%;
+    left: 0;
+  }
+
+  .imgs::after {
+    content: "đi 1 người cô đơn:>>";
+    color: #fff;
+    font-family: monospace;
+    position: absolute;
+    bottom: 8px;
+    right: 0;
+    font-size: 0.8rem;
+    letter-spacing: 8px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .imgs {
+    flex-wrap: wrap;
+    .img-wrap {
+      max-width: 150px;
+      max-height: 150px;
+      min-width: 150px;
+      min-height: 150px;
+    }
+  }
+}

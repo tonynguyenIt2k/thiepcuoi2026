@@ -1,0 +1,355 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.header {
+  margin-top: 48px;
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+
+  // height: fit-content;
+
+  .title {
+    width: 100%;
+    font-size: 5rem;
+    font-family: Brush;
+    font-weight: 100;
+    letter-spacing: 3px;
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    left: 50%;
+    top: 24px;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .back-img {
+    max-height: 300px;
+    width: 100%;
+    height: 100%;
+    height: 300px;
+  }
+
+  .hbimg {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(1);
+  }
+
+  .front-img {
+    max-width: 600px;
+    width: 100%;
+    max-height: 400px;
+    height: 500px;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hfimg {
+    padding: 24px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 3px solid #333;
+
+    // filter: grayscale(1);
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 300px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.row {
+  box-sizing: border-box;
+  max-width: 1024px;
+  display: flex;
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 4px 4px 8px 4px;
+
+  .column {
+    box-sizing: border-box;
+    flex: 24%;
+    max-width: 24%;
+    padding: 0 4px;
+  }
+
+  .column .img-block {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    margin-top: 8px;
+    position: relative;
+    transition: display 1s ease-in-out;
+    cursor: pointer;
+    img {
+      vertical-align: middle;
+      width: 100%;
+      height: 100%;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #03030388;
+
+      display: none;
+    }
+
+    &:hover {
+      &::after {
+        display: block;
+      }
+    }
+  }
+
+  .column:nth-child(even) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  @media screen and (max-width: 768px) {
+    .column {
+      flex: 50%;
+      max-width: 50%;
+    }
+  }
+}
+
+.row:nth-child(2) {
+  margin: 100px 0;
+  background-color: #333;
+  position: relative;
+}
+
+.row:nth-child(2)::before {
+  content: "You're always on my mind. All day just all the time. You're everything to me .Brightest star to let me see";
+  position: absolute;
+  top: -60px;
+  color: #333;
+  font-family: Brush;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  word-spacing: 3px;
+  text-align: center;
+  max-width: 900px;
+}
+
+.row:nth-child(2)::after {
+  content: "Love is missing someone whenever you're apart.";
+  position: absolute;
+  bottom: -60px;
+  color: #333;
+  font-family: Brush;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  word-spacing: 3px;
+  text-align: center;
+  max-width: 900px;
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(0.8) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1) rotate(5deg);
+  }
+  100% {
+    transform: scale(0.8) rotate(-5deg);
+  }
+}
+
+.btn-box {
+  width: 150px;
+  height: 150px;
+  padding: 12px;
+  margin: 24px 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &::before {
+    content: "";
+    background-image: url("../images/br-arrow.png");
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(180deg);
+    right: -200px;
+    top: -30px;
+  }
+
+  &::after {
+    content: "";
+    background-image: url("../images/br-arrow.png");
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate3d(45deg);
+    left: -200px;
+    top: -30px;
+  }
+
+  .btn {
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+    border-radius: 50%;
+    color: #fff;
+    font-family: StyleScript;
+    background-image: url("../images/br.jpeg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    outline: none;
+    font-size: 2.4rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+    border: none;
+    animation: zoom 2s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    &:hover {
+      animation: none;
+    }
+  }
+}
+
+// footer
+
+.footer {
+  margin: 24px 0;
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+
+  .text {
+    position: absolute;
+    z-index: 2;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: 5rem;
+    font-weight: 100;
+    font-family: Brush;
+    letter-spacing: 3px;
+  }
+
+  .img-wrap {
+    max-height: 200px;
+    width: 100%;
+    height: 100%;
+    height: 300px;
+  }
+
+  .img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(1);
+  }
+}
+
+// reponsive
+
+@media (max-width: 680px) {
+  .header .back-img {
+    height: 200px;
+  }
+
+  .header .front-img {
+    width: 400px;
+    height: 300px;
+  }
+
+  .header .hfimg {
+    padding: 16px;
+  }
+
+  .container {
+    margin-top: 240px;
+  }
+
+  .row:nth-child(2)::before {
+    top: -80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header .back-img {
+    height: 150px;
+  }
+
+  .header .front-img {
+    width: 300px;
+    height: 200px;
+  }
+
+  .header .hfimg {
+    padding: 12px;
+  }
+
+  .header .title {
+    top: 12px;
+  }
+
+  .container {
+    margin-top: 150px;
+  }
+
+  .btn-box::before,
+  .btn-box::after {
+    width: 100px;
+    height: 100px;
+  }
+
+  .btn-box::before {
+    right: -100px;
+    top: 0;
+  }
+
+  .btn-box::after {
+    left: -100px;
+    top: 0;
+  }
+
+  .footer .img-wrap {
+    height: 120px;
+  }
+}

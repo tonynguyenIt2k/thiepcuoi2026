@@ -1,0 +1,81 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.title {
+  margin-top: 24px;
+  font-size: 3rem;
+  color: var(--primary-1);
+  font-family: var(--large-font);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1024px;
+  width: 100%;
+}
+
+.wish {
+  margin: 0 6px;
+  margin-bottom: 12px;
+  padding: 12px;
+  width: 300px;
+  min-height: 100px;
+  text-align: start;
+  background-image: url("../images/br.jpeg");
+  overflow: auto;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.name {
+  font-size: 2rem;
+  font-family: Text;
+  font-weight: bold;
+  color: var(--primary-1);
+  text-transform: uppercase;
+}
+
+.nodata {
+  color: #fff;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.content {
+  font-size: 1.8rem;
+  font-family: StyleScript;
+  margin: 24px 0;
+}
+
+.isAttend {
+  font-style: italic;
+  font-size: 1.2rem;
+  align-self: flex-end;
+}
+
+.link {
+  margin: 12px;
+  margin-bottom: 48px;
+  text-decoration: underline;
+  color: #333;
+}
+
+@media (max-width: 648px) {
+  .wish {
+    width: 500px;
+  }
+}

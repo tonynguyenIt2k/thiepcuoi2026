@@ -1,0 +1,210 @@
+$top: 295px;
+$br: var(--primary);
+.game {
+  display: block;
+  margin-top: 100px;
+  max-width: 700px;
+  width: 100%;
+  height: 500px;
+}
+
+.gaming-ui {
+  width: 100%;
+  height: 100%;
+  background-image: url("./images/background.png");
+  background-size: cover;
+
+  .score {
+    font-size: 2rem;
+    font-family: var(--large-font);
+    font-weight: bold;
+  }
+}
+
+.finshish-ui {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("./images/happy.gif");
+  background-size: 200px 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: var(--primary);
+  color: white;
+
+  .title {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: GameFont;
+    text-align: center;
+  }
+
+  .start-button {
+    margin-top: 24px;
+    font-size: 1.6rem;
+    font-family: GameFont;
+  }
+
+  .start-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .score {
+    margin-top: 12px;
+    font-weight: bold;
+  }
+}
+
+.die-ui {
+  background-image: url("./images/groom.gif");
+  background-size: 200px 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: $br;
+  .title {
+    color: black;
+  }
+}
+
+.win-ui {
+  background-image: url("./images/happy.gif"), url("./images/heart.png");
+  background-size: 200px 200px, 100px;
+  background-repeat: no-repeat;
+  background-position: 50% 65%, 50% 40%;
+  background-color: $br;
+  .title {
+    color: rgb(255, 200, 1);
+  }
+}
+
+.groom {
+  height: 80px;
+  width: 80px;
+  background-image: url(./images/groom.gif);
+  background-size: 80px 80px;
+  position: relative;
+  top: $top;
+}
+
+.bride {
+  height: 80px;
+  width: 80px;
+  background-image: url(./images/bride.gif);
+  background-size: 80px 80px;
+  position: relative;
+  top: calc($top - 80px);
+  left: 30px;
+  animation: bride-block 1s linear;
+}
+
+.jump {
+  animation: jump 0.3s linear;
+}
+
+@keyframes jump {
+  0% {
+    top: $top;
+  }
+
+  30% {
+    top: calc($top - 25px);
+  }
+
+  45% {
+    top: calc($top - 60px);
+  }
+
+  50% {
+    top: calc($top - 90px);
+  }
+
+  65% {
+    top: calc($top - 60px);
+  }
+
+  80% {
+    top: calc($top - 25px);
+  }
+
+  100% {
+    top: $top;
+  }
+}
+
+.walk {
+  animation: walk 1s linear;
+  left: 350px;
+}
+
+@keyframes walk {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: 350px;
+  }
+}
+
+.obs {
+  width: 70px;
+  height: 50px;
+  background-image: url(./images/smoke.gif);
+  position: relative;
+  top: calc($top - 55px);
+  left: 700px;
+  background-size: 70px 50px;
+  animation: block 1s infinite linear;
+}
+
+.alcohol {
+  background-image: url(./images/acol.gif);
+}
+
+.cigarette {
+  background-image: url(./images/smoke.gif);
+}
+
+.punch {
+  width: 50px;
+  background-image: url(./images/punch.gif);
+  background-size: 50px 50px;
+}
+
+.at {
+  background-image: url(./images/at.gif);
+}
+
+@keyframes block {
+  0% {
+    left: 700px;
+  }
+
+  100% {
+    left: -50px;
+  }
+}
+
+@keyframes bride-block {
+  0% {
+    left: 700px;
+  }
+  100% {
+    left: 30px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .game {
+  }
+
+  .obs {
+    animation: block 1.5s infinite linear;
+  }
+}

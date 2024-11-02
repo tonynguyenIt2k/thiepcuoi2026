@@ -1,0 +1,125 @@
+.wrapper {
+  margin: 48px 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 100px;
+  flex: 1;
+  background-image: url("./../../../images/br.jpeg");
+  color: #fff;
+  max-width: 800px;
+  // background-image: url(../../static/images/img2.png);
+  // background-position: bottom left;
+  // background-size: 180px;
+  // background-repeat: no-repeat;
+}
+
+.house {
+  width: 80px;
+  height: 80px;
+  margin: 24px 0;
+  color: #fff;
+}
+
+.title {
+  font-size: 3.5rem;
+  margin: 0;
+  margin-top: 32px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.date {
+  font-size: 1.6rem;
+  font-weight: lighter;
+  font-family: Ultra;
+  font-weight: 600;
+  font-size: 2.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  .date-detail {
+    margin-left: 12px;
+    padding-right: 12px;
+    font-size: 5rem;
+    letter-spacing: 7px;
+    text-align: center;
+  }
+
+  .date-detail:last-child {
+    border-right: none;
+  }
+}
+
+.address {
+  max-width: 400px;
+  margin: 24px;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #fff;
+  font-family: Text;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  .street {
+    font-weight: 200;
+    font-size: 1.3rem;
+    font-family: "Courier New", Courier, monospace;
+    font-style: italic;
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+.btn {
+  width: 200px;
+  height: 40px;
+  margin-top: 24px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 2rem;
+  text-decoration: underline;
+  cursor: pointer;
+  .icon {
+    color: var(--primary-1);
+    margin-right: 12px;
+  }
+}
+
+.btn.ani-btn {
+  text-decoration: none;
+  animation: slideOut 2s infinite ease-in-out;
+  font-family: var(--large-font);
+  font-weight: bold;
+  font-size: 2.4rem;
+  letter-spacing: 2px;
+}
+
+.small {
+  width: 150px;
+}
+
+.black-icon {
+  color: black;
+}
+
+@media (max-width: 767px) {
+  .img {
+    width: 100px;
+  }
+}
