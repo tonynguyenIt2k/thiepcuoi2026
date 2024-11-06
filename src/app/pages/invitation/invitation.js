@@ -78,7 +78,7 @@ function Invitation() {
           }}
         />
         {error && <p className={cx("err")}>{error}</p>}
-        <CopyToClipboard text={path + name} onCopy={handleCopy}>
+        <CopyToClipboard text={encodeURI(path + name)} onCopy={handleCopy}>
           <motion.button
             className={cx("btn")}
             onClick={handleCopy}

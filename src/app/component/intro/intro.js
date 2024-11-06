@@ -8,13 +8,8 @@ const cx = classNames.bind(styles);
 
 function Intro({ handleOpen, name = "You" }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
 
-  let style = {
-    transform: isInView ? "none" : "scale(0)",
-    transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1) 1.5s",
-  };
-
+  console.log(name);
   return (
     <div className={cx("wrapper")} ref={ref}>
       <div className={cx("block-wrapper")}>
