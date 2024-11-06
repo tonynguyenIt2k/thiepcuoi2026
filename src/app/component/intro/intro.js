@@ -65,6 +65,7 @@ function Intro({ handleOpen, name = "You" }) {
               <span className={cx("heart-icon")}>
                 <img className={cx("icon")} src={images.invite.default.src} />
               </span>
+              Mở thiệp
             </motion.button>
           </div>
         </div>

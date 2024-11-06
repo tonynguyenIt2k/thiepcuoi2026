@@ -100,8 +100,8 @@ const daysInMonth = [
 
 const bank = {
   name: "Trần Thị Thuý",
-  bankName: "Sacombank",
-  bankNumber: "050057646583",
+  bankName: "Vietinbank ",
+  bankNumber: "107880386791",
 };
 
 const inv = [`${link}/e7`, `${link}/e4`, `${link}/e6`];
