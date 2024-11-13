@@ -7,22 +7,8 @@ import { useDebounce } from "@/app/helper";
 import { useSearchParams } from "next/navigation";
 import Confetti from "react-dom-confetti";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
+import { configConfetti } from "@/app/configs/ui";
 const cx = classNames.bind(styles);
-
-const config = {
-  angle: "188",
-  spread: 360,
-  startVelocity: "50",
-  elementCount: "133",
-  dragFriction: 0.12,
-  duration: 3000,
-  stagger: "0",
-  width: "10px",
-  height: "10px",
-  perspective: "500px",
-  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
-};
 
 function Invitation() {
   const [name, setName] = useState("");
@@ -93,7 +79,7 @@ function Invitation() {
           </motion.button>
         </CopyToClipboard>
       </div>
-      <Confetti active={isCopied} config={config} />
+      <Confetti active={isCopied} config={configConfetti} />
     </div>
   );
 }

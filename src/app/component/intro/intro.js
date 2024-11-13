@@ -1,9 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./intro.module.scss";
 import images from "@/app/images";
-import { useInView, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
-
 const cx = classNames.bind(styles);
 
 function Intro({ handleOpen, name = "You" }) {

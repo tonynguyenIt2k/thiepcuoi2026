@@ -250,6 +250,22 @@ const finalImages = [
   `${link}/final4`,
 ];
 
+// config Confetti
+
+const configConfetti = {
+  angle: "188",
+  spread: 360,
+  startVelocity: "50",
+  elementCount: "133",
+  dragFriction: 0.12,
+  duration: 3000,
+  stagger: "0",
+  width: "10px",
+  height: "10px",
+  perspective: "500px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+};
+
 const albums = [...albumA, ...albumB, ...albumC];
 export {
   weddingInfo,
@@ -264,4 +280,5 @@ export {
   albumB,
   albumC,
   albums,
+  configConfetti,
 };

@@ -12,22 +12,9 @@ import Confetti from "react-dom-confetti";
 import { useDebounce } from "@/app/helper";
 import validation from "@/app/helper/validation";
 import { useRouter } from "next/navigation";
-
+import { configConfetti } from "@/app/configs/ui";
 const cx = classNames.bind(styles);
 
-const config = {
-  angle: "188",
-  spread: 360,
-  startVelocity: "50",
-  elementCount: "133",
-  dragFriction: 0.12,
-  duration: 3000,
-  stagger: "0",
-  width: "10px",
-  height: "10px",
-  perspective: "500px",
-  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
-};
 function GuestBook({ fName }) {
   const ref = useRef();
   const viewRef = useRef();
@@ -166,8 +153,9 @@ function GuestBook({ fName }) {
           <label htmlFor="or">Không biết</label>
         </div>
         <p className={cx("help-text")}>
-          Nếu không thể gửi lời nhắn bằng trình duyệt trình duyệt messeger , hãy
-          thử mở trình duyệt bên ngoài (Chome, Safia,...){" "}
+          Nếu không thể gửi lời nhắn bằng trình duyệt trong{" "}
+          <strong>Messeger</strong> , hãy thử mở trình duyệt bên ngoài (
+          <strong>Chome, Safia,...</strong>){" "}
         </p>
 
         <button
@@ -184,7 +172,7 @@ function GuestBook({ fName }) {
           Gửi lời nhắn
           {renderIcon(willArrive)}
         </button>
-        <button
+        {/* <button
           className={cx("btn")}
           style={{
             transform: isInView ? "translateY(0)" : "translateY(80px)",
@@ -194,13 +182,13 @@ function GuestBook({ fName }) {
           onClick={() => setIsOpenGift(true)}
         >
           Mừng cưới
-        </button>
+        </button> */}
         <button
           className={cx("btn")}
           style={{
             transform: isInView ? "translateY(0)" : "translateY(80px)",
             opacity: isInView ? 1 : 0,
-            transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.6s",
+            transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.3s",
           }}
           onClick={() => {
             router.push(`/wish?name=${fName}`);
@@ -209,13 +197,13 @@ function GuestBook({ fName }) {
           Xem lời chúc
         </button>
       </div>
-      {isOpenGift && (
-        <div className={cx("overlay")}>
-          <Gift onClose={() => setIsOpenGift(false)} />
-        </div>
-      )}
+      {/* {isOpenGift && (
+        <div className={cx("overlay")}> */}
+      <Gift onClose={() => setIsOpenGift(false)} />
+      {/* </div>
+      )} */}
 
-      <Confetti active={active} config={config} />
+      <Confetti active={active} config={configConfetti} />
     </div>
   );
 }
