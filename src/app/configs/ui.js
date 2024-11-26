@@ -9,7 +9,7 @@ const link2 =
 const weddingInfo = [
   {
     time: {
-      date: "22/11",
+      date: "22/12",
       year: "2024",
       time: "11:00",
       full: "Chủ nhật, Ngày 22 Tháng 12 năm 2024",
