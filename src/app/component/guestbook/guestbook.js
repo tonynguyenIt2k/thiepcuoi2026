@@ -197,13 +197,13 @@ function GuestBook({ fName }) {
           Xem lời chúc
         </button>
       </div>
+      <Confetti active={active} config={configConfetti} />
+
       {/* {isOpenGift && (
         <div className={cx("overlay")}> */}
       <Gift onClose={() => setIsOpenGift(false)} />
       {/* </div>
       )} */}
-
-      <Confetti active={active} config={configConfetti} />
     </div>
   );
 }

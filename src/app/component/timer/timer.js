@@ -1,9 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./timer.module.scss";
-import { FaCalendar } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
-import { useInView, motion } from "framer-motion";
+import { useInView } from "framer-motion";
 
 const cx = classNames.bind(styles);
 function Timer() {
@@ -17,8 +16,8 @@ function Timer() {
 
   const wedding = {
     year: 2024,
-    day: 19,
-    month: 11,
+    day: 22,
+    month: 12,
   };
 
   const currentTime = new Date();

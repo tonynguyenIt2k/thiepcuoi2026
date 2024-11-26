@@ -9,11 +9,12 @@ const link2 =
 const weddingInfo = [
   {
     time: {
-      date: "19/11",
+      date: "22/11",
       year: "2024",
       time: "11:00",
+      full: "Chủ nhật, Ngày 22 Tháng 12 năm 2024",
     },
-    address: "XÓM 2, THÔN VÂN TIỀN, XÃ QUẢNG LƯU, QUẢNG TRẠCH, QUẢNG BÌNH",
+    address: "Tổ 23A , xã tân lập , huyện đồng phú , tỉnh bình phước",
     street: "XÓM 2, THÔN VÂN TIỀN, XÃ QUẢNG LƯU, QUẢNG TRẠCH, QUẢNG BÌNH",
     phone: "0375 889 827",
     posision: "bottom left",
@@ -36,72 +37,78 @@ const profile = [
   },
 ];
 
-// const daysInMonth = [
-//   {
-//     title: "mon",
-//     days: [2, 9, 16, 23, 30],
-//   },
-//   {
-//     title: "tue",
-//     days: [3, 10, 17, 24, 31],
-//   },
-//   {
-//     title: "wed",
-//     days: [4, 11, 18, 25, 0],
-//   },
-//   {
-//     title: "thu",
-//     days: [5, 12, 19, 26, 0],
-//   },
-//   {
-//     title: "fri",
-//     days: [6, 13, 20, 27, 0],
-//   },
-//   {
-//     title: "sat",
-//     days: [7, 14, 21, 27, 0],
-//   },
-//   {
-//     title: "sun",
-//     days: [1, 8, 15, 22, 29],
-//   },
-// ];
-
 const daysInMonth = [
   {
     title: "mon",
-    days: [4, 11, 18, 25, 0],
+    days: [0, 2, 9, 16, 23, 30],
   },
   {
     title: "tue",
-    days: [5, 12, 19, 26, 0],
+    days: [0, 3, 10, 17, 24, 31],
   },
   {
     title: "wed",
-    days: [6, 13, 20, 27, 0],
+    days: [0, 4, 11, 18, 25, 0],
   },
   {
     title: "thu",
-    days: [7, 14, 21, 28, 0],
+    days: [0, 5, 12, 19, 26, 0],
   },
   {
     title: "fri",
-    days: [1, 8, 15, 22, 29],
+    days: [0, 6, 13, 20, 27, 0],
   },
   {
     title: "sat",
-    days: [2, 9, 16, 23, 30],
+    days: [0, 7, 14, 21, 27, 0],
   },
   {
     title: "sun",
-    days: [3, 10, 17, 24, 0],
+    days: [1, 8, 15, 22, 29, 0],
   },
 ];
 
-const bank = {
+// const daysInMonth = [
+//   {
+//     title: "mon",
+//     days: [4, 11, 18, 25, 0],
+//   },
+//   {
+//     title: "tue",
+//     days: [5, 12, 19, 26, 0],
+//   },
+//   {
+//     title: "wed",
+//     days: [6, 13, 20, 27, 0],
+//   },
+//   {
+//     title: "thu",
+//     days: [7, 14, 21, 28, 0],
+//   },
+//   {
+//     title: "fri",
+//     days: [1, 8, 15, 22, 29],
+//   },
+//   {
+//     title: "sat",
+//     days: [2, 9, 16, 23, 30],
+//   },
+//   {
+//     title: "sun",
+//     days: [3, 10, 17, 24, 0],
+//   },
+// ];
+
+const brideBank = {
   name: "Trần Thị Thuý",
   bankName: "Vietinbank ",
   bankNumber: "107880386791",
+};
+
+const groomBank = {
+  name: "Lang Mạnh Hùng",
+  bankName: "MB BANK",
+  bankNumber: "9999999996654",
 };
 
 const inv = [`${link}/e7`, `${link}/e4`, `${link}/e6`];
@@ -271,7 +278,8 @@ export {
   weddingInfo,
   daysInMonth,
   profile,
-  bank,
+  brideBank,
+  groomBank,
   album,
   finalImages,
   inv,

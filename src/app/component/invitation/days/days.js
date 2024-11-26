@@ -4,7 +4,7 @@ import { daysInMonth } from "@/app/configs/ui";
 
 const cx = classNames.bind(styles);
 
-function Days({ title = "Month", activeDay = 19 }) {
+function Days({ title = "Month", activeDay = 22 }) {
   return (
     <div className={cx("wrapper")}>
       <h2 className={cx("title")}>{title}</h2>
@@ -13,14 +13,14 @@ function Days({ title = "Month", activeDay = 19 }) {
           return (
             <div className={cx("col")} key={col.title}>
               <span className={cx("day-title")}>{col.title}</span>
-              {col.days.map((day) => {
+              {col.days.map((day, index) => {
                 return (
                   <span
                     className={cx(
                       "day-number",
                       activeDay === day && "active-day"
                     )}
-                    key={day}
+                    key={index}
                   >
                     {day === 0 ? "" : day}
                   </span>

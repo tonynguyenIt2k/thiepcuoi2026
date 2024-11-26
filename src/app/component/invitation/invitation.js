@@ -44,7 +44,7 @@ function Invitation() {
           <img className={cx("img")} src={inv[2]} />
         </div>
       </div>
-      <Days title="Tháng 11" />
+      <Days title="Tháng 12" />
       <Infomation
         img={wedInfo.img}
         title={wedInfo.title}

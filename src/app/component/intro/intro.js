@@ -3,6 +3,7 @@ import styles from "./intro.module.scss";
 import images from "@/app/images";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import { weddingInfo } from "@/app/configs/ui";
 const cx = classNames.bind(styles);
 
 function Intro({ handleOpen, name = "You" }) {
@@ -25,7 +26,7 @@ function Intro({ handleOpen, name = "You" }) {
           </div>
           <div className={cx("right")}>
             <div className={cx("text-box")}>
-              <p className={cx("date")}>Thứ ba , Ngày 19 Tháng 11 năm 2024 </p>
+              <p className={cx("date")}>{weddingInfo[0].time.full}</p>
               <div className={cx("name-box")}>
                 <h3 className={cx("name")} style={{ marginTop: "-40px" }}>
                   T

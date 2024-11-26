@@ -4,7 +4,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: `Form Nhập Tên`,
+    title: `Báo Hỉ | Form Nhập Tên`,
     openGraph: {
       images: [
         "https://res.cloudinary.com/do6sozxbo/image/upload/v1730394150/wedding5_1/a3.jpg",

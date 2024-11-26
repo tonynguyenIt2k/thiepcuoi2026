@@ -96,7 +96,6 @@ function Album({ name }) {
           pauseOnFocus
           swipeToSlide={true}
           focusOnSelect={true}
-          centerMode
           responsive={[
             {
               breakpoint: 1024,
