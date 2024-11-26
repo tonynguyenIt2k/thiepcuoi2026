@@ -15,7 +15,7 @@ const weddingInfo = [
       full: "Chủ nhật, Ngày 22 Tháng 12 năm 2024",
     },
     address: "Tổ 23A , xã tân lập , huyện đồng phú , tỉnh bình phước",
-    street: "XÓM 2, THÔN VÂN TIỀN, XÃ QUẢNG LƯU, QUẢNG TRẠCH, QUẢNG BÌNH",
+    street: "Tổ 23A , xã tân lập , huyện đồng phú , tỉnh bình phước",
     phone: "0375 889 827",
     posision: "bottom left",
   },
