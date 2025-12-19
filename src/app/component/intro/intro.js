@@ -3,7 +3,7 @@ import styles from "./intro.module.scss";
 import images from "@/app/images";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { weddingInfo } from "@/app/configs/ui";
+import { introSection, weddingInfo } from "@/app/configs/ui";
 const cx = classNames.bind(styles);
 
 function Intro({ handleOpen, name = "You" }) {
@@ -18,10 +18,7 @@ function Intro({ handleOpen, name = "You" }) {
             <p className={cx("header-text")}>SAVE THE DATE</p>
 
             <div className={cx("img-box")}>
-              <img
-                className={cx("img")}
-                src="https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e3"
-              />
+              <img className={cx("img")} src={introSection.mainImage} />
             </div>
           </div>
           <div className={cx("right")}>
@@ -29,11 +26,11 @@ function Intro({ handleOpen, name = "You" }) {
               <p className={cx("date")}>{weddingInfo[0].time.full}</p>
               <div className={cx("name-box")}>
                 <h3 className={cx("name")} style={{ marginTop: "-40px" }}>
-                  T
+                  {introSection.brideFirstLetter}
                 </h3>
                 <span className={cx("and")}></span>
                 <h3 className={cx("name")} style={{ marginBottom: "-40px" }}>
-                  H
+                  {introSection.groomFirstLetter}
                 </h3>
               </div>
 

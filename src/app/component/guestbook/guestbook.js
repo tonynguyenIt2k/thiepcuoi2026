@@ -12,7 +12,11 @@ import Confetti from "react-dom-confetti";
 import { useDebounce } from "@/app/helper";
 import validation from "@/app/helper/validation";
 import { useRouter } from "next/navigation";
-import { configConfetti } from "@/app/configs/ui";
+import {
+  configConfetti,
+  guestbookSection,
+  WISH_API_LINK,
+} from "@/app/configs/ui";
 const cx = classNames.bind(styles);
 
 function GuestBook({ fName }) {
@@ -36,16 +40,13 @@ function GuestBook({ fName }) {
   const handleSendMessage = useDebounce(() => {
     const isValid = validation({ name, wish, isAttend: willArrive });
 
-    const dateString = "12/12/2024";
     const now = new Date();
-    const last = new Date(dateString);
-
-    // console.log(now.getTime() > last.getTime());
+    const last = new Date(guestbookSection.time);
 
     if (isValid && now.getTime() <= last.getTime()) {
       var data = { name, wish, isAttend: willArrive };
-      fetch("https://67244368493fac3cf24dafe9.mockapi.io/api/v1/wishes", {
-        method: "POST", // or 'PUT'
+      fetch(WISH_API_LINK, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -61,6 +62,8 @@ function GuestBook({ fName }) {
         .catch((error) => {
           alert("Xin lỗi ! Có lỗi phía server .");
         });
+    } else {
+      alert("Hết thời gian chúc mừng");
     }
   }, 1300);
 
@@ -98,6 +101,7 @@ function GuestBook({ fName }) {
           <div
             className={cx("img")}
             style={{
+              backgroundImage: `url(${guestbookSection.image})`,
               transform: isInViewBox
                 ? "translateX(0) rotate(0deg)"
                 : " translateX(-200px) rotate(-180deg)",

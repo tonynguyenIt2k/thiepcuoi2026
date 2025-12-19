@@ -14,9 +14,12 @@ function Invitation() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [isCopied, setIsCopied] = useState(false);
+  const [path, setPath] = useState("");
   const searchParams = useSearchParams();
 
-  const path = `${window.location.origin}/?name=`;
+  useEffect(() => {
+    setPath(`${window.location.origin}/?name=`);
+  }, []);
 
   useEffect(() => {
     // Kiểm tra xem searchParams có hợp lệ không

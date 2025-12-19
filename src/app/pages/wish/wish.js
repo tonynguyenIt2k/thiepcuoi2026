@@ -8,6 +8,7 @@ import Love from "@/app/icons/love";
 import Sad from "@/app/icons/sad";
 import Angry from "@/app/icons/angry";
 import wishArray from "@/api/wishes";
+import { WISH_API_LINK } from "@/app/configs/ui";
 const cx = classNames.bind(styles);
 
 function Wish({}) {
@@ -20,18 +21,21 @@ function Wish({}) {
     function compareByDate(a, b) {
       return b.createdAt - a.createdAt;
     }
-    const data = wishArray.sort(compareByDate);
-    setWishes(data);
 
-    // fetch("https://67244368493fac3cf24dafe9.mockapi.io/api/v1/wishes")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     data = data.sort(compareByDate);
-    //     setWishes(data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
+    if (!WISH_API_LINK) {
+      const data = wishArray.sort(compareByDate);
+      setWishes(data);
+    } else {
+      fetch(WISH_API_LINK)
+        .then((response) => response.json())
+        .then((data) => {
+          data = data.sort(compareByDate);
+          setWishes(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   }, []);
 
   return (

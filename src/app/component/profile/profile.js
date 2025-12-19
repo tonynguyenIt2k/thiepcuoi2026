@@ -1,4 +1,4 @@
-import { profile } from "@/app/configs/ui";
+import { profile, profileSection } from "@/app/configs/ui";
 import styles from "./profile.module.scss";
 import classNames from "classnames/bind";
 import Chacracter from "./character";
@@ -9,13 +9,10 @@ function Profile() {
   return (
     <div className={cx("wrapper")}>
       <h2 className={cx("title")}>PROFILE</h2>
-      <p className={cx("des")}>
-        Hôn nhân không phải là một điểm đến mà là một cuộc hành trình nơi mà hai
-        người cùng xây dựng và phát triển
-      </p>
+      <p className={cx("des")}>{profileSection.description}</p>
 
       <div className={cx("profiles")}>
-        {profile.map((pro, index) => {
+        {profileSection.profiles.map((pro, index) => {
           return <Chacracter data={pro} key={pro.title} />;
         })}
       </div>

@@ -3,8 +3,7 @@ import styles from "./invitation.module.scss";
 import classNames from "classnames/bind";
 import Days from "./days/days";
 import Infomation from "./infomation";
-import images from "@/app/images";
-import { weddingInfo, inv } from "@/app/configs/ui";
+import { weddingInfo, invitationSection } from "@/app/configs/ui";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 
@@ -28,10 +27,10 @@ function Invitation() {
             transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
           }}
         >
-          <img className={cx("img")} src={inv[1]} />
+          <img className={cx("img")} src={invitationSection[1]} />
         </div>
         <div className={cx("img-wrap", "center-img")}>
-          <img className={cx("img")} src={inv[0]} />
+          <img className={cx("img")} src={invitationSection[0]} />
         </div>
         <div
           className={cx("img-wrap")}
@@ -41,10 +40,10 @@ function Invitation() {
             transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s  ",
           }}
         >
-          <img className={cx("img")} src={inv[2]} />
+          <img className={cx("img")} src={invitationSection[2]} />
         </div>
       </div>
-      <Days title="Tháng 12" />
+      <Days title="Tháng 12" activeDay={invitationSection.activeDay} />
       <Infomation
         img={wedInfo.img}
         title={wedInfo.title}

@@ -1,5 +1,4 @@
 "use client";
-import images from "@/app/images";
 import styles from "./album.module.scss";
 import classNames from "classnames/bind";
 import Slider from "react-slick";
@@ -7,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
-import { album } from "@/app/configs/ui";
+import { albumSection } from "@/app/configs/ui";
 import Link from "next/link";
 
 const cx = classNames.bind(styles);
@@ -30,7 +29,7 @@ function Album({ name }) {
       <div className={cx("header")}>
         <div className={cx("side-img-wrap")} ref={viewRef}>
           <img
-            src={album[2]}
+            src={albumSection.images[2]}
             className={cx("side-img")}
             style={{
               transform: isInView
@@ -50,7 +49,7 @@ function Album({ name }) {
           <div className={cx("main-img-wrap")}>
             <img
               className={cx("main-img")}
-              src={album[5]}
+              src={albumSection.images[5]}
               style={{
                 transform: isInView
                   ? "translateX(0) rotate(0deg)"
@@ -75,7 +74,7 @@ function Album({ name }) {
           adaptiveHeight
           ref={(slider) => (sliderRef1 = slider)}
         >
-          {album.map((src) => {
+          {albumSection.images.map((src) => {
             return (
               <div className={cx("monitor")} key={src}>
                 <img className={cx("monitor-img")} src={src} />
@@ -120,7 +119,7 @@ function Album({ name }) {
             },
           ]}
         >
-          {album.map((src, index) => {
+          {albumSection.images.map((src) => {
             return (
               <div className={cx("selector")} key={src}>
                 <img className={cx("selector-img")} src={src} />

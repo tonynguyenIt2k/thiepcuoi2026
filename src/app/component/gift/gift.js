@@ -1,9 +1,8 @@
-import { brideBank, groomBank } from "@/app/configs/ui";
+import { giftSection } from "@/app/configs/ui";
 import styles from "./gift.module.scss";
 import classNames from "classnames/bind";
 import { useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
-import images from "@/app/images";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useDebounce } from "@/app/helper";
 import { useState } from "react";
@@ -45,10 +44,7 @@ function Gift({ onClose, hasNav = true }) {
       </div>
 
       <div className={cx("content")}>
-        <img
-          className={cx("img")}
-          src="https://res.cloudinary.com/do6sozxbo/image/upload/v1730383598/wedding5/am3.jpg"
-        />
+        <img className={cx("img")} src={giftSection.image} />
 
         {hasNav && (
           <div className={cx("nav")}>
@@ -69,7 +65,7 @@ function Gift({ onClose, hasNav = true }) {
         {nav === "bride" ? (
           <div className={cx("bank")} ref={viewRef}>
             <img
-              src={images.qr2.default.src}
+              src={giftSection.brideBank.qr}
               className={cx("qr-code")}
               style={{
                 transform: isInView ? "translateX(0)" : "translateX(-150px)",
@@ -85,15 +81,19 @@ function Gift({ onClose, hasNav = true }) {
                 transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1)",
               }}
             >
-              <p className={cx("name")}>{brideBank.name}</p>
-              <p className={cx("bank-name")}>{brideBank.bankName}</p>
-              <p className={cx("bank-number")}>{brideBank.bankNumber}</p>
+              <p className={cx("name")}>{giftSection.brideBank.name}</p>
+              <p className={cx("bank-name")}>
+                {giftSection.brideBank.bankName}
+              </p>
+              <p className={cx("bank-number")}>
+                {giftSection.brideBank.bankNumber}
+              </p>
             </div>
           </div>
         ) : (
           <div className={cx("bank")} ref={viewRef}>
             <img
-              src={images.qr.default.src}
+              src={giftSection.groomBank.qr}
               className={cx("qr-code")}
               style={{
                 transform: isInView ? "translateX(0)" : "translateX(-150px)",
@@ -109,15 +109,23 @@ function Gift({ onClose, hasNav = true }) {
                 transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1)",
               }}
             >
-              <p className={cx("name")}>{groomBank.name}</p>
-              <p className={cx("bank-name")}>{groomBank.bankName}</p>
-              <p className={cx("bank-number")}>{groomBank.bankNumber}</p>
+              <p className={cx("name")}>{giftSection.groomBank.name}</p>
+              <p className={cx("bank-name")}>
+                {giftSection.groomBank.bankName}
+              </p>
+              <p className={cx("bank-number")}>
+                {giftSection.groomBank.bankNumber}
+              </p>
             </div>
           </div>
         )}
 
         <CopyToClipboard
-          text={nav === "bride" ? brideBank.bankNumber : groomBank.bankNumber}
+          text={
+            nav === "bride"
+              ? giftSection.brideBank.bankNumber
+              : giftSection.groomBank.bankNumber
+          }
           onCopy={handleCopy}
         >
           <button className={cx("btn")}>

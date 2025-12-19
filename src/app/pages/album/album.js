@@ -1,14 +1,7 @@
 "use client";
 import classNames from "classnames/bind";
 import styles from "./album.module.scss";
-import {
-  album,
-  albumA,
-  albumB,
-  albumC,
-  albums,
-  alland,
-} from "@/app/configs/ui";
+import { albumA, albumB, albumC, albums, albumPage } from "@/app/configs/ui";
 import { useRef, useState } from "react";
 import Preview from "@/app/component/preview";
 import { useSearchParams } from "next/navigation";
@@ -44,7 +37,7 @@ function Album() {
           >
             Album chúng mình
           </h2>
-          <img className={cx("hbimg")} src={alland[1]} />
+          <img className={cx("hbimg")} src={albumPage.topImage} />
         </div>
         <div
           className={cx("front-img")}
@@ -54,7 +47,7 @@ function Album() {
             transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1)",
           }}
         >
-          <img className={cx("hfimg")} src={album[1]} />
+          <img className={cx("hfimg")} src={albumPage.mainImage} />
         </div>
       </div>
       <div className={cx("container")}>
@@ -146,7 +139,7 @@ function Album() {
       <div className={cx("footer")}>
         <h2 className={cx("text")}>Thank you</h2>
         <div className={cx("img-wrap")}>
-          <img className={cx("img")} src={alland[0]} />
+          <img className={cx("img")} src={albumPage.bottomImage} />
         </div>
       </div>
     </div>

@@ -1,20 +1,18 @@
+import { metaData } from "../configs/ui";
 import Album from "../pages/album";
 
-export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata({}, parent) {
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: `Album của Hùng - Thúy`,
+    title: metaData.album.title,
     openGraph: {
-      images: [
-        "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/final3.jpg",
-        ...previousImages,
-      ],
+      images: [metaData.album.graphImage, ...previousImages],
     },
   };
 }
 
-function Page({ params, searchParams }) {
+function Page({}) {
   return <Album />;
 }
 

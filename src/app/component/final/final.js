@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./final.module.scss";
 import PaperText from "../paperText/paperText";
-import { finalImages } from "../../configs/ui";
+import { finalSection } from "../../configs/ui";
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +12,7 @@ function Final() {
 
       <div className={cx("noise")}>
         <div className={cx("imgs")}>
-          {finalImages.map((src) => {
+          {finalSection.images.map((src) => {
             return (
               <div className={cx("img-wrap")} key={src}>
                 <img className={cx("img")} src={src} />

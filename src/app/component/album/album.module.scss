@@ -11,19 +11,21 @@
 .header {
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   padding: 4px;
   .content {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 
   .title {
     display: block;
-    margin-top: 12px;
-    margin-left: 12px;
+    margin-left: 60px;
+    margin-bottom: 60px;
     font-family: "Courier New", Courier, monospace;
     position: relative;
+    flex: 1;
   }
 
   .title::before {
@@ -399,8 +401,13 @@
     object-fit: cover;
   }
 
+  .header .title {
+    margin-left: 12px;
+  }
+
   .header .title .text {
     // font-size: 2rem;
+    margin-top: 20px;
   }
 
   .header .title .text:nth-child(2) {
@@ -419,5 +426,14 @@
       border-top: 5px dashed #fff;
       border-bottom: 5px dashed #fff;
     }
+  }
+}
+
+@media (max-width: 540px) {
+  .header .title {
+    margin-bottom: 12px;
+  }
+  .header .title .text {
+    font-size: 4rem;
   }
 }

@@ -3,7 +3,7 @@ import styles from "./timer.module.scss";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
-
+import { timerSection } from "@/app/configs/ui";
 const cx = classNames.bind(styles);
 function Timer() {
   const [state, setState] = useState({
@@ -14,26 +14,13 @@ function Timer() {
     isWeddingDay: false,
   });
 
-  const wedding = {
-    year: 2024,
-    day: 22,
-    month: 12,
-  };
-
   const currentTime = new Date();
 
   const isItWedding =
-    currentTime.getDate() === wedding.day &&
-    currentTime.getMonth() === wedding.month - 1;
+    currentTime.getDate() === timerSection.weddingTime.day &&
+    currentTime.getMonth() === timerSection.weddingTime.month - 1;
 
   const currentYear = currentTime.getFullYear();
-
-  const event = {
-    title: "Wedding Day",
-    description: "Be there!",
-    start: new Date(wedding.year, wedding.month - 1, wedding.day),
-    duration: [3, "hour"],
-  };
 
   useEffect(() => {
     setInterval(() => {
@@ -43,15 +30,23 @@ function Timer() {
 
         // if the Birthday has passed
         // then set the Birthday countdown for next year
-        let weddingDay = new Date(wedding.year, wedding.month - 1, wedding.day);
+        let weddingDay = new Date(
+          timerSection.weddingTime.year,
+          timerSection.weddingTime.month - 1,
+          timerSection.weddingTime.day
+        );
         if (dateAtm > weddingDay) {
           weddingDay = new Date(
-            wedding.year + 1,
-            wedding.month - 1,
-            wedding.day
+            timerSection.weddingTime.year + 1,
+            timerSection.weddingTime.month - 1,
+            timerSection.weddingTime.day
           );
         } else if (dateAtm.getFullYear() === weddingDay.getFullYear() + 1) {
-          weddingDay = new Date(currentYear, wedding.month - 1, wedding.day);
+          weddingDay = new Date(
+            currentYear,
+            timerSection.weddingTime.month - 1,
+            timerSection.weddingTime.day
+          );
         }
 
         // Getitng Current Time
@@ -80,7 +75,6 @@ function Timer() {
           days,
           isItWedding,
         }));
-        // console.log(`${days}:${hours}:${minutes}:${seconds} , ${isItBday}`);
       };
       if (!isItWedding) {
         countdown();
@@ -91,7 +85,7 @@ function Timer() {
         }));
       }
     }, 1000);
-  }, [wedding.month, wedding.day, isItWedding, wedding.month]);
+  }, [isItWedding]);
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });

@@ -1,15 +1,13 @@
+import { metaData } from "../configs/ui";
 import Invitation from "../pages/invitation";
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: `Báo Hỉ | Form Nhập Tên`,
+    title: metaData.invitation.title,
     openGraph: {
-      images: [
-        "https://res.cloudinary.com/do6sozxbo/image/upload/v1730394150/wedding5_1/a3.jpg",
-        ...previousImages,
-      ],
+      images: [metaData.invitation.graphImage, ...previousImages],
     },
   };
 }

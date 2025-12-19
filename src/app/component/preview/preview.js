@@ -68,86 +68,15 @@ function Preview({ data, onClose, index }) {
           }}
           controller={{ control: swipper }}
         >
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[0]?.img} />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[1]?.img} />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[2]?.img} />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[3]?.img} />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[4]?.img} />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[5]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[6]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[7]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[8]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[9]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[10]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[11]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[12]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[13]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[14]?.img} />
-            </div>
-          </SwiperSlide>{" "}
-          <SwiperSlide>
-            <div className={cx("img-wrapper")}>
-              <img className={cx("img")} alt={"image"} src={imgs[15]?.img} />
-            </div>
-          </SwiperSlide>{" "}
+          {imgs.map((img) => {
+            return (
+              <SwiperSlide key={img.img}>
+                <div className={cx("img-wrapper")}>
+                  <img className={cx("img")} alt={"image"} src={img.img} />
+                </div>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
         <div className={cx("icon-box", "next-icon")} onClick={handleNext}>
           <GoChevronRight className={cx("icon")} />
