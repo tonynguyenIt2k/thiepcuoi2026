@@ -32,38 +32,44 @@ function GuestBook({ fName }) {
   const [willArrive, setWillArrive] = useState(null);
 
   const [active, setActive] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: "", type: "info" });
 
   const handleChangeRadio = (type) => {
     setWillArrive(type);
   };
 
   const handleSendMessage = useDebounce(() => {
-    const isValid = validation({ name, wish, isAttend: willArrive });
+    const isValid = validation({ name, wish, isAttend: willArrive }, (msg) => {
+      setToast({ show: true, message: msg, type: "error" });
+    });
 
     const now = new Date();
     const last = new Date(guestbookSection.time);
 
-    if (isValid && now.getTime() <= last.getTime()) {
-      var data = { name, wish, isAttend: willArrive };
-      fetch(WISH_API_LINK, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setName("");
-          setWish("");
-          setWillArrive(null);
-          setActive(true);
+    if (isValid) {
+      if (now.getTime() <= last.getTime()) {
+        var data = { name, wish, isAttend: willArrive };
+        fetch(WISH_API_LINK, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         })
-        .catch((error) => {
-          alert("Xin lỗi ! Có lỗi phía server .");
-        });
-    } else {
-      alert("Hết thời gian chúc mừng");
+          .then((response) => response.json())
+          .then((data) => {
+            setName("");
+            setWish("");
+            setWillArrive(null);
+            setActive(true);
+            setToast({ show: true, message: "Gửi lời chúc thành công! Cảm ơn lời chúc ngọt ngào của bạn.", type: "success" });
+          })
+          .catch((error) => {
+            setToast({ show: true, message: "Xin lỗi! Đã xảy ra lỗi kết nối với máy chủ.", type: "error" });
+          });
+      } else {
+        setToast({ show: true, message: "Thời gian gửi lời chúc đã kết thúc.", type: "warning" });
+      }
     }
   }, 1300);
 
@@ -203,11 +209,25 @@ function GuestBook({ fName }) {
       </div>
       <Confetti active={active} config={configConfetti} />
 
-      {/* {isOpenGift && (
-        <div className={cx("overlay")}> */}
       <Gift onClose={() => setIsOpenGift(false)} />
-      {/* </div>
-      )} */}
+
+      {toast.show && (
+        <div className={cx("toast-modal-overlay")} onClick={() => setToast(prev => ({ ...prev, show: false }))}>
+          <div className={cx("toast-modal-card")} onClick={e => e.stopPropagation()}>
+            <div className={cx("toast-modal-header", toast.type)}>
+              <span className={cx("toast-modal-icon")}>
+                {toast.type === "success" ? "🎉" : toast.type === "error" ? "❌" : "⚠️"}
+              </span>
+            </div>
+            <div className={cx("toast-modal-body")}>
+              <p>{toast.message}</p>
+            </div>
+            <button className={cx("toast-modal-btn")} onClick={() => setToast(prev => ({ ...prev, show: false }))}>
+              Đồng ý
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

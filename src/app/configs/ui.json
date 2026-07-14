@@ -95,7 +95,7 @@
   "introSection": {
     "mainImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052591714_photo_3_2026-07-15_00-54-33.jpg",
     "brideFirstLetter": "T",
-    "groomFirstLetter": "H"
+    "groomFirstLetter": "V"
   },
   "profileSection": {
     "description": "Hôn nhân không phải là một điểm đến mà là một cuộc hành trình nơi mà hai người cùng xây dựng và phát triển",
@@ -143,14 +143,14 @@
     "image": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052308694_photo_3_2026-07-15_00-54-33.jpg",
     "brideBank": {
       "name": "Văn Thị Thu Trang",
-      "bankName": "Vietinbank ",
-      "qr": "",
+      "bankName": "BIDV (Đầu tư và Phát triển)",
+      "qr": "https://img.vietqr.io/image/BIDV-update-compact2.jpg?accountName=V%C4%83n%20Th%E1%BB%8B%20Thu%20Trang",
       "bankNumber": "update"
     },
     "groomBank": {
       "name": "Triệu Quang VInh",
-      "bankName": "MB BANK",
-      "qr": "",
+      "bankName": "BIDV (Đầu tư và Phát triển)",
+      "qr": "https://img.vietqr.io/image/BIDV-update-compact2.jpg?accountName=Tri%E1%BB%87u%20Quang%20VInh",
       "bankNumber": "update"
     }
   },
@@ -170,20 +170,20 @@
     ]
   },
   "albumPage": {
-    "topImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052154103_photo_4_2026-07-15_00-54-33.jpg",
+    "topImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784061592905_hoto_3_2026-07-15_00-54-33.jpg",
     "bottomImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052161974_photo_6_2026-07-15_00-54-33.jpg",
-    "mainImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052146284_photo_2_2026-07-15_00-54-33.jpg"
+    "mainImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784061435252_hoto_3_2026-07-15_00-54-33.jpg"
   },
   "albumA": [
     {
       "imgs": [
         {
           "id": 1,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e1"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056923801_photo_5_2026-07-15_00-54-33.jpg"
         },
         {
           "id": 2,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e4"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056929190_photo_6_2026-07-15_00-54-33.jpg"
         }
       ]
     },
@@ -191,11 +191,11 @@
       "imgs": [
         {
           "id": 3,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e3"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056935243_photo_3_2026-07-15_00-54-33.jpg"
         },
         {
           "id": 4,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e5"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056940815_photo_4_2026-07-15_00-54-33.jpg"
         }
       ]
     },
@@ -203,23 +203,23 @@
       "imgs": [
         {
           "id": 5,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e6"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056947166_photo_1_2026-07-15_00-54-33.jpg"
         },
         {
           "id": 6,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e7"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056952029_photo_2_2026-07-15_00-54-33.jpg"
         }
       ]
     },
     {
       "imgs": [
         {
-          "id": 7,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e8"
+          "id": 15,
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784057018614_photo_1_2026-07-15_00-54-33.jpg"
         },
         {
-          "id": 8,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/groom3"
+          "id": 16,
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784057025931_photo_6_2026-07-15_00-54-33.jpg"
         }
       ]
     }
@@ -228,8 +228,24 @@
     {
       "imgs": [
         {
+          "id": 7,
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056958108_photo_5_2026-07-15_00-54-33.jpg"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 8,
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056963934_photo_4_2026-07-15_00-54-33.jpg"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
           "id": 9,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e9"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056970155_photo_1_2026-07-15_00-54-33.jpg"
         }
       ]
     },
@@ -237,23 +253,7 @@
       "imgs": [
         {
           "id": 10,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e13"
-        }
-      ]
-    },
-    {
-      "imgs": [
-        {
-          "id": 11,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e10"
-        }
-      ]
-    },
-    {
-      "imgs": [
-        {
-          "id": 12,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e11"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056974941_photo_6_2026-07-15_00-54-33.jpg"
         }
       ]
     }
@@ -262,8 +262,24 @@
     {
       "imgs": [
         {
+          "id": 11,
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056981483_photo_2_2026-07-15_00-54-33.jpg"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 12,
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056987595_photo_3_2026-07-15_00-54-33.jpg"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
           "id": 13,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e15"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784056995625_photo_6_2026-07-15_00-54-33.jpg"
         }
       ]
     },
@@ -271,23 +287,7 @@
       "imgs": [
         {
           "id": 14,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e14"
-        }
-      ]
-    },
-    {
-      "imgs": [
-        {
-          "id": 15,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e16"
-        }
-      ]
-    },
-    {
-      "imgs": [
-        {
-          "id": 16,
-          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e17"
+          "img": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784057007530_photo_1_2026-07-15_00-54-33.jpg"
         }
       ]
     }

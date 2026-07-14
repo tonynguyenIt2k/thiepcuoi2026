@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
 import styles from "./editor.module.scss";
 import { 
@@ -22,10 +22,56 @@ import {
   FaCheckCircle,
   FaDownload,
   FaLink,
-  FaUsers
+  FaUsers,
+  FaExclamationTriangle,
+  FaTimes,
+  FaLock,
+  FaKey
 } from "react-icons/fa";
 
 const cx = classNames.bind(styles);
+
+const partitionToFourGroups = (flatImages) => {
+  const n = flatImages.length;
+  const groups = [
+    { imgs: [] },
+    { imgs: [] },
+    { imgs: [] },
+    { imgs: [] }
+  ];
+  if (n === 0) return groups;
+  const baseSize = Math.floor(n / 4);
+  const remainder = n % 4;
+  let currentIdx = 0;
+  for (let i = 0; i < 4; i++) {
+    const size = baseSize + (i < remainder ? 1 : 0);
+    groups[i].imgs = flatImages.slice(currentIdx, currentIdx + size);
+    currentIdx += size;
+  }
+  return groups;
+};
+
+const VIETQR_BANKS = [
+  { bin: "970422", code: "MB", name: "MB Bank (Ngân hàng Quân đội)" },
+  { bin: "970436", code: "VCB", name: "Vietcombank (Ngoại thương)" },
+  { bin: "970415", code: "ICB", name: "VietinBank (Công thương)" },
+  { bin: "970418", code: "BIDV", name: "BIDV (Đầu tư và Phát triển)" },
+  { bin: "970407", code: "TCB", name: "Techcombank (Kỹ thương)" },
+  { bin: "970405", code: "VBA", name: "Agribank (Nông nghiệp & PTNT)" },
+  { bin: "970416", code: "ACB", name: "ACB (Á Châu)" },
+  { bin: "970403", code: "STB", name: "Sacombank (Sài Gòn Thương Tín)" },
+  { bin: "970414", code: "VPB", name: "VPBank (Việt Nam Thịnh Vượng)" },
+  { bin: "970423", code: "TPB", name: "TPBank (Tiên Phong)" },
+  { bin: "970441", code: "VIB", name: "VIB (Quốc tế)" },
+  { bin: "970443", code: "SHB", name: "SHB (Sài Gòn - Hà Nội)" },
+  { bin: "970437", code: "HDB", name: "HDBank (Phát triển TP.HCM)" },
+  { bin: "970426", code: "MSB", name: "MSB (Hàng Hải)" },
+  { bin: "970440", code: "OCB", name: "OCB (Phương Đông)" },
+  { bin: "970449", code: "LPB", name: "LPBank (Bưu điện Liên Việt)" },
+  { bin: "970419", code: "NCB", name: "NCB (Quốc Dân)" },
+  { bin: "970448", code: "SeAB", name: "SeABank (Đông Nam Á)" },
+  { bin: "970409", code: "BAB", name: "Bac A Bank (Bắc Á)" },
+];
 
 export default function Editor() {
   const [activeTab, setActiveTab] = useState("general");
@@ -35,7 +81,9 @@ export default function Editor() {
   const [saving, setSaving] = useState(false);
   const [gitSyncing, setGitSyncing] = useState(false);
   const [gitLogs, setGitLogs] = useState([]);
-  const [message, setMessage] = useState({ type: "", text: "" });
+  const [message, setMessage] = useState({ type: "", text: "", visible: false });
+  const toastTimeoutRef1 = useRef(null);
+  const toastTimeoutRef2 = useRef(null);
 
   const [config, setConfig] = useState(null);
 
@@ -53,18 +101,48 @@ export default function Editor() {
   const [bulkGuests, setBulkGuests] = useState([]);
 
   const [isLocal, setIsLocal] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+
+  // GitHub API integration states for non-localhost Vercel environment
+  const [githubToken, setGithubToken] = useState("");
+  const [githubOwner, setGithubOwner] = useState("tonynguyenIt2k");
+  const [githubRepo, setGithubRepo] = useState("thiepcuoi2026");
+  const [githubBranch, setGithubBranch] = useState("main");
 
   useEffect(() => {
-    // Kiểm tra chạy ở localhost
     if (typeof window !== "undefined") {
       const hostname = window.location.hostname;
       const localHost = hostname === "localhost" || hostname === "127.0.0.1";
       setIsLocal(localHost);
-      if (localHost) {
-        fetchConfig();
+
+      // Restore credentials from localStorage if any
+      setGithubToken(localStorage.getItem("editor_github_token") || "");
+      setGithubOwner(localStorage.getItem("editor_github_owner") || "tonynguyenIt2k");
+      setGithubRepo(localStorage.getItem("editor_github_repo") || "thiepcuoi2026");
+      setGithubBranch(localStorage.getItem("editor_github_branch") || "main");
+
+      if (localHost || sessionStorage.getItem("editor_authenticated") === "true") {
+        setIsAuthenticated(true);
       }
+      
+      // Always fetch config so editor can display data
+      fetchConfig();
     }
   }, []);
+
+  const handleCheckPassword = () => {
+    const correctPassword = process.env.NEXT_PUBLIC_EDITOR_PASSWORD || "2026";
+    if (passwordInput === correctPassword) {
+      setIsAuthenticated(true);
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("editor_authenticated", "true");
+      }
+      showSuccess("Đăng nhập trang quản trị thành công!");
+    } else {
+      showError("Mật khẩu không chính xác! Vui lòng thử lại.");
+    }
+  };
 
   const fetchConfig = async () => {
     try {
@@ -94,18 +172,41 @@ export default function Editor() {
     }
   };
 
-  const showSuccess = (msg) => {
-    setMessage({ type: "success", text: msg });
-    setTimeout(() => setMessage({ type: "", text: "" }), 5000);
+  const showToast = (type, text) => {
+    if (toastTimeoutRef1.current) clearTimeout(toastTimeoutRef1.current);
+    if (toastTimeoutRef2.current) clearTimeout(toastTimeoutRef2.current);
+
+    setMessage({ type, text, visible: true });
+
+    toastTimeoutRef1.current = setTimeout(() => {
+      setMessage(prev => ({ ...prev, visible: false }));
+    }, 4700);
+
+    toastTimeoutRef2.current = setTimeout(() => {
+      setMessage({ type: "", text: "", visible: false });
+    }, 5000);
   };
 
-  const showError = (msg) => {
-    setMessage({ type: "error", text: msg });
-    setTimeout(() => setMessage({ type: "", text: "" }), 5000);
+  const showSuccess = (msg) => showToast("success", msg);
+  const showError = (msg) => showToast("error", msg);
+  const showInfo = (msg) => showToast("info", msg);
+
+  const dismissMessage = () => {
+    setMessage(prev => ({ ...prev, visible: false }));
+    if (toastTimeoutRef1.current) clearTimeout(toastTimeoutRef1.current);
+    if (toastTimeoutRef2.current) clearTimeout(toastTimeoutRef2.current);
+    toastTimeoutRef2.current = setTimeout(() => {
+      setMessage({ type: "", text: "", visible: false });
+    }, 300);
   };
 
   const handleSave = async (e) => {
     if (e) e.preventDefault();
+    if (!isLocal) {
+      showSuccess("Đang chạy trên Vercel. Tiến hành lưu trực tiếp lên GitHub...");
+      await handleGitSync();
+      return;
+    }
     try {
       setSaving(true);
       
@@ -149,6 +250,57 @@ export default function Editor() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleAddAlbumImage = (albumKey, url) => {
+    if (!config) return;
+    const flatA = (config.albumA || []).flatMap(g => g.imgs || []);
+    const flatB = (config.albumB || []).flatMap(g => g.imgs || []);
+    const flatC = (config.albumC || []).flatMap(g => g.imgs || []);
+    const maxId = [...flatA, ...flatB, ...flatC].reduce((m, i) => Math.max(m, i.id || 0), 0);
+
+    const currentFlat = (config[albumKey] || []).flatMap(g => g.imgs || []);
+    currentFlat.push({ id: maxId + 1, img: url });
+
+    const partitioned = partitionToFourGroups(currentFlat);
+    setNestedVal([albumKey], partitioned);
+  };
+
+  const handleDeleteAlbumImage = (albumKey, targetId) => {
+    if (!config) return;
+    const currentFlat = (config[albumKey] || []).flatMap(g => g.imgs || []);
+    const updatedFlat = currentFlat.filter(item => item.id !== targetId);
+    const partitioned = partitionToFourGroups(updatedFlat);
+    setNestedVal([albumKey], partitioned);
+  };
+
+  const handleGenerateVietQR = (bankType) => {
+    if (!config) return;
+    const bankData = config.giftSection?.[bankType];
+    if (!bankData) return;
+
+    const { name, bankName, bankNumber } = bankData;
+    if (!name || !bankName || !bankNumber) {
+      showError("Vui lòng nhập đầy đủ Chủ tài khoản, Ngân hàng và Số tài khoản để sinh mã QR!");
+      return;
+    }
+
+    // Try to find matching bank code
+    const nameLower = bankName.toLowerCase();
+    const matched = VIETQR_BANKS.find(b => 
+      nameLower.includes(b.code.toLowerCase()) || 
+      nameLower.includes(b.name.toLowerCase()) ||
+      nameLower.includes(b.bin)
+    );
+
+    if (!matched) {
+      showError("Không nhận diện được mã ngân hàng VietQR! Vui lòng chọn một ngân hàng từ danh sách.");
+      return;
+    }
+
+    const qrUrl = `https://img.vietqr.io/image/${matched.code}-${bankNumber}-compact2.jpg?accountName=${encodeURIComponent(name)}`;
+    setNestedVal(["giftSection", bankType, "qr"], qrUrl);
+    showSuccess(`Đã sinh mã VietQR (${matched.code}) thành công!`);
   };
 
   const handleFileDelete = async (url) => {
@@ -205,27 +357,139 @@ export default function Editor() {
     if (!confirm("Bạn có chắc chắn muốn đẩy tất cả cấu hình và ảnh lên GitHub ngay lập tức?")) {
       return;
     }
-    try {
-      setGitSyncing(true);
-      setGitLogs(["Gửi yêu cầu đồng bộ GitHub... đang chuẩn bị..."]);
-      
-      // Tự động lưu cấu hình trước khi đẩy lên github
-      await handleSave();
+    
+    if (isLocal) {
+      try {
+        setGitSyncing(true);
+        setGitLogs(["Gửi yêu cầu đồng bộ GitHub... đang chuẩn bị..."]);
+        
+        const updatedConfig = JSON.parse(JSON.stringify(config));
+        if (!updatedConfig.albumSection) updatedConfig.albumSection = {};
+        updatedConfig.albumSection.images = albumImages;
 
-      const res = await fetch("/api/git", { method: "POST" });
-      const data = await res.json();
-      setGitLogs(data.logs || []);
-      
-      if (res.ok && data.success) {
-        showSuccess("Đã đẩy code thành công lên GitHub!");
-      } else {
-        showError("Đồng bộ thất bại: " + (data.error || "Kiểm tra log console phía dưới"));
+        if (!updatedConfig.finalSection) updatedConfig.finalSection = {};
+        updatedConfig.finalSection.images = finalImages;
+
+        if (!updatedConfig.invitationSection) updatedConfig.invitationSection = {};
+        updatedConfig.invitationSection.imgs = invitationImages;
+
+        if (!updatedConfig.profileSection) updatedConfig.profileSection = {};
+        if (!updatedConfig.profileSection.profiles) updatedConfig.profileSection.profiles = [{}, {}];
+        if (!updatedConfig.profileSection.profiles[0]) updatedConfig.profileSection.profiles[0] = {};
+        if (!updatedConfig.profileSection.profiles[1]) updatedConfig.profileSection.profiles[1] = {};
+        
+        updatedConfig.profileSection.profiles[0].images = brideSlideImages;
+        updatedConfig.profileSection.profiles[1].images = groomSlideImages;
+        updatedConfig.invitationDomain = invitationDomain;
+
+        const saveRes = await fetch("/api/config", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedConfig)
+        });
+        
+        if (!saveRes.ok) {
+          throw new Error("Không thể lưu cấu hình cục bộ trước khi đẩy!");
+        }
+
+        const res = await fetch("/api/git", { method: "POST" });
+        const data = await res.json();
+        setGitLogs(data.logs || []);
+        
+        if (res.ok && data.success) {
+          showSuccess("Đã đẩy code thành công lên GitHub!");
+        } else {
+          showError("Đồng bộ thất bại: " + (data.error || "Kiểm tra log console phía dưới"));
+        }
+      } catch (err) {
+        setGitLogs(prev => [...prev, `Lỗi mạng: ${err.message}`]);
+        showError("Lỗi đồng bộ GitHub: " + err.message);
+      } finally {
+        setGitSyncing(false);
       }
-    } catch (err) {
-      setGitLogs(prev => [...prev, `Lỗi mạng: ${err.message}`]);
-      showError("Lỗi đồng bộ GitHub: " + err.message);
-    } finally {
-      setGitSyncing(false);
+    } else {
+      if (!githubToken) {
+        showError("Vui lòng nhập GitHub Personal Access Token để đồng bộ trên Vercel!");
+        setActiveTab("github");
+        return;
+      }
+      try {
+        setGitSyncing(true);
+        setGitLogs(["Bắt đầu đồng bộ thông qua GitHub REST API..."]);
+
+        const owner = githubOwner || "tonynguyenIt2k";
+        const repo = githubRepo || "thiepcuoi2026";
+        const branch = githubBranch || "main";
+        const path = "src/app/configs/ui.json";
+        
+        setGitLogs(prev => [...prev, `Đang lấy file SHA từ GitHub: ${owner}/${repo}...`]);
+        const getRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+          headers: {
+            "Authorization": `token ${githubToken}`,
+            "Accept": "application/vnd.github.v3+json"
+          }
+        });
+        
+        if (!getRes.ok) {
+          throw new Error(`Không thể tìm thấy file cấu hình trên repository (${getRes.statusText})`);
+        }
+        
+        const fileData = await getRes.json();
+        const sha = fileData.sha;
+        setGitLogs(prev => [...prev, `Đã tìm thấy file SHA: ${sha}`]);
+
+        const updatedConfig = JSON.parse(JSON.stringify(config));
+        if (!updatedConfig.albumSection) updatedConfig.albumSection = {};
+        updatedConfig.albumSection.images = albumImages;
+
+        if (!updatedConfig.finalSection) updatedConfig.finalSection = {};
+        updatedConfig.finalSection.images = finalImages;
+
+        if (!updatedConfig.invitationSection) updatedConfig.invitationSection = {};
+        updatedConfig.invitationSection.imgs = invitationImages;
+
+        if (!updatedConfig.profileSection) updatedConfig.profileSection = {};
+        if (!updatedConfig.profileSection.profiles) updatedConfig.profileSection.profiles = [{}, {}];
+        if (!updatedConfig.profileSection.profiles[0]) updatedConfig.profileSection.profiles[0] = {};
+        if (!updatedConfig.profileSection.profiles[1]) updatedConfig.profileSection.profiles[1] = {};
+        
+        updatedConfig.profileSection.profiles[0].images = brideSlideImages;
+        updatedConfig.profileSection.profiles[1].images = groomSlideImages;
+        updatedConfig.invitationDomain = invitationDomain;
+
+        const jsonString = JSON.stringify(updatedConfig, null, 2);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+
+        setGitLogs(prev => [...prev, `Đang đẩy commit cập nhật lên nhánh ${branch}...`]);
+        const commitRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+          method: "PUT",
+          headers: {
+            "Authorization": `token ${githubToken}`,
+            "Accept": "application/vnd.github.v3+json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: `Cập nhật cấu hình thiệp cưới từ Editor (Vercel) - ${new Date().toLocaleString('vi-VN')}`,
+            content: base64Content,
+            sha: sha,
+            branch: branch
+          })
+        });
+
+        const commitData = await commitRes.json();
+        if (commitRes.ok) {
+          setGitLogs(prev => [...prev, "Đẩy code lên GitHub thành công tốt đẹp!", "Vercel sẽ tự động biên dịch lại trang web của bạn (khoảng 1-2 phút)."]);
+          showSuccess("Đã lưu và đồng bộ lên GitHub thành công! Vui lòng đợi Vercel xây dựng lại trang.");
+          setConfig(updatedConfig);
+        } else {
+          throw new Error(commitData.message || "Lỗi không xác định khi commit");
+        }
+      } catch (err) {
+        setGitLogs(prev => [...prev, `Lỗi đồng bộ: ${err.message}`]);
+        showError("Đồng bộ thất bại: " + err.message);
+      } finally {
+        setGitSyncing(false);
+      }
     }
   };
 
@@ -360,27 +624,40 @@ export default function Editor() {
     showSuccess("Đã sao chép liên kết mời cưới!");
   };
 
-  if (!isLocal) {
+  if (!isLocal && !isAuthenticated) {
     return (
       <div className={cx("editor-container")} style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
-        <div style={{ background: "#131522", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "24px", padding: "48px 40px", maxWidth: "600px", textAlign: "center", boxShadow: "0 10px 30px rgba(0,0,0,0.5)" }}>
-          <h1 style={{ background: "linear-gradient(135deg, #a5b4fc 0%, #f472b6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontSize: "2rem", fontWeight: "800", marginBottom: "20px" }}>
-            Trình Chỉnh Sửa Bảo Mật <FaHeart style={{ color: "#f472b6" }} />
+        <div style={{ background: "#131522", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "24px", padding: "48px 40px", maxWidth: "450px", width: "90%", textAlign: "center", boxShadow: "0 10px 30px rgba(0,0,0,0.5)" }}>
+          <h1 style={{ background: "linear-gradient(135deg, #a5b4fc 0%, #f472b6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontSize: "2rem", fontWeight: "800", marginBottom: "20px", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
+            Trình quản trị <FaLock style={{ color: "#f472b6" }} />
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: "1.7", marginBottom: "32px" }}>
-            Để bảo mật thông tin và quyền riêng tư của bạn, <strong>Trình Chỉnh Sửa (Editor)</strong> chỉ hoạt động ngoại tuyến dưới máy tính cá nhân (Localhost).
+          <p style={{ color: "#94a3b8", fontSize: "0.95rem", lineHeight: "1.7", marginBottom: "24px" }}>
+            Hệ thống đang chạy trực tuyến. Bạn vui lòng nhập mật khẩu quản trị để chỉnh sửa thiệp cưới.
           </p>
-          <div style={{ background: "rgba(165, 180, 252, 0.04)", border: "1px solid rgba(165, 180, 252, 0.12)", borderRadius: "16px", padding: "20px 24px", marginBottom: "32px", color: "#a5b4fc", fontSize: "0.95rem" }}>
-            <strong style={{ display: "block", marginBottom: "10px", fontSize: "1.05rem" }}>👉 Hướng dẫn chỉnh sửa:</strong>
-            <ol style={{ textAlign: "left", margin: "0", paddingLeft: "20px", lineHeight: "1.6" }}>
-              <li style={{ marginBottom: "8px" }}>Mở Terminal trên máy tính của bạn ở thư mục dự án.</li>
-              <li style={{ marginBottom: "8px" }}>Chạy lệnh: <code style={{ background: "rgba(0,0,0,0.4)", padding: "2px 6px", borderRadius: "4px", color: "#f43f5e" }}>npm run dev</code></li>
-              <li>Truy cập địa chỉ: <a href="http://localhost:3000/editor" style={{ color: "#38bdf8", textDecoration: "underline", fontWeight: "bold" }}>http://localhost:3000/editor</a> để chỉnh sửa và tự động đẩy lên GitHub.</li>
-            </ol>
+          <div className={cx("field")} style={{ textAlign: "left", marginBottom: "24px" }}>
+            <label><FaKey /> Mật khẩu truy cập</label>
+            <input 
+              type="password" 
+              placeholder="Mật khẩu (mặc định: 2026)..." 
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleCheckPassword();
+              }}
+            />
           </div>
-          <a href="./" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#a5b4fc", color: "#1e1b4b", padding: "12px 32px", borderRadius: "24px", textDecoration: "none", fontWeight: "700", boxShadow: "0 4px 14px rgba(165, 180, 252, 0.3)", transition: "all 0.2s" }}>
-            <FaArrowLeft /> Quay lại xem Thiệp cưới
-          </a>
+          <div style={{ display: "flex", gap: "12px" }}>
+            <a href="./" className={cx("save-btn")} style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.1)", color: "#94a3b8", flex: 1, textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "20px", height: "40px" }}>
+              <FaArrowLeft /> Xem Thiệp
+            </a>
+            <button 
+              onClick={handleCheckPassword}
+              className={cx("save-btn")} 
+              style={{ flex: 1, borderRadius: "20px", height: "40px", justifyContent: "center" }}
+            >
+              Đăng nhập
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -415,10 +692,17 @@ export default function Editor() {
       </header>
 
       {message.text && (
-        <div className={cx("global-message", message.type)}>
-          {message.type === "success" && <FaCheckCircle />}
-          {message.type === "loading" && <FaSpinner className={cx("spinner")} />}
-          <span>{message.text}</span>
+        <div className={cx("global-message", message.type, message.visible ? "show" : "hide")}>
+          <div className={cx("toast-content")}>
+            {message.type === "success" && <FaCheckCircle className={cx("toast-icon")} />}
+            {message.type === "error" && <FaExclamationTriangle className={cx("toast-icon")} />}
+            {message.type === "info" && <FaSpinner className={cx("toast-icon", "spinner")} />}
+            <span className={cx("toast-text")}>{message.text}</span>
+            <button className={cx("toast-close-btn")} onClick={dismissMessage} aria-label="Close">
+              <FaTimes />
+            </button>
+          </div>
+          <div className={cx("toast-progress", message.type)} />
         </div>
       )}
 
@@ -802,7 +1086,22 @@ export default function Editor() {
                     />
                   </div>
                   <div className={cx("field")}>
-                    <label>Ngân hàng</label>
+                    <label>Chọn nhanh Ngân hàng</label>
+                    <select
+                      style={{ marginBottom: "8px" }}
+                      onChange={(e) => {
+                        const bank = VIETQR_BANKS.find(b => b.code === e.target.value);
+                        if (bank) {
+                          setNestedVal(["giftSection", "brideBank", "bankName"], bank.name);
+                        }
+                      }}
+                    >
+                      <option value="">-- Chọn ngân hàng từ danh sách --</option>
+                      {VIETQR_BANKS.map(b => (
+                        <option key={b.code} value={b.code}>{b.name}</option>
+                      ))}
+                    </select>
+                    <label>Tên Ngân hàng (Hiển thị)</label>
                     <input 
                       type="text" 
                       value={config.giftSection?.brideBank?.bankName || ""} 
@@ -835,6 +1134,27 @@ export default function Editor() {
                         />
                       </label>
                     </div>
+                    
+                    <button
+                      type="button"
+                      onClick={() => handleGenerateVietQR("brideBank")}
+                      className={cx("save-btn")}
+                      style={{ 
+                        margin: "12px 0", 
+                        width: "100%", 
+                        fontSize: "0.85rem", 
+                        padding: "8px 12px", 
+                        background: "rgba(129, 140, 248, 0.15)", 
+                        border: "1px solid rgba(129, 140, 248, 0.4)",
+                        color: "#a5b4fc",
+                        borderRadius: "12px",
+                        height: "auto",
+                        justifyContent: "center"
+                      }}
+                    >
+                      ⚡ Tự động tạo VietQR từ thông tin trên
+                    </button>
+
                     {config.giftSection?.brideBank?.qr && (
                       <img src={config.giftSection.brideBank.qr} className={cx("preview-thumbnail")} style={{ maxHeight: "140px", objectFit: "contain" }} alt="Bride QR" />
                     )}
@@ -853,7 +1173,22 @@ export default function Editor() {
                     />
                   </div>
                   <div className={cx("field")}>
-                    <label>Ngân hàng</label>
+                    <label>Chọn nhanh Ngân hàng</label>
+                    <select
+                      style={{ marginBottom: "8px" }}
+                      onChange={(e) => {
+                        const bank = VIETQR_BANKS.find(b => b.code === e.target.value);
+                        if (bank) {
+                          setNestedVal(["giftSection", "groomBank", "bankName"], bank.name);
+                        }
+                      }}
+                    >
+                      <option value="">-- Chọn ngân hàng từ danh sách --</option>
+                      {VIETQR_BANKS.map(b => (
+                        <option key={b.code} value={b.code}>{b.name}</option>
+                      ))}
+                    </select>
+                    <label>Tên Ngân hàng (Hiển thị)</label>
                     <input 
                       type="text" 
                       value={config.giftSection?.groomBank?.bankName || ""} 
@@ -886,6 +1221,27 @@ export default function Editor() {
                         />
                       </label>
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={() => handleGenerateVietQR("groomBank")}
+                      className={cx("save-btn")}
+                      style={{ 
+                        margin: "12px 0", 
+                        width: "100%", 
+                        fontSize: "0.85rem", 
+                        padding: "8px 12px", 
+                        background: "rgba(129, 140, 248, 0.15)", 
+                        border: "1px solid rgba(129, 140, 248, 0.4)",
+                        color: "#a5b4fc",
+                        borderRadius: "12px",
+                        height: "auto",
+                        justifyContent: "center"
+                      }}
+                    >
+                      ⚡ Tự động tạo VietQR từ thông tin trên
+                    </button>
+
                     {config.giftSection?.groomBank?.qr && (
                       <img src={config.giftSection.groomBank.qr} className={cx("preview-thumbnail")} style={{ maxHeight: "140px", objectFit: "contain" }} alt="Groom QR" />
                     )}
@@ -925,6 +1281,12 @@ export default function Editor() {
                   onClick={() => setGallerySubTab("albumPage")}
                 >
                   Ảnh bìa trang Album
+                </button>
+                <button 
+                  className={cx("subtab-btn", gallerySubTab === "albumContent" && "active")}
+                  onClick={() => setGallerySubTab("albumContent")}
+                >
+                  Ảnh nội dung Album
                 </button>
                 <button 
                   className={cx("subtab-btn", gallerySubTab === "guestbook" && "active")}
@@ -1105,6 +1467,107 @@ export default function Editor() {
                     {config.albumPage?.bottomImage && (
                       <img src={config.albumPage.bottomImage} className={cx("preview-thumbnail")} alt="Album Bottom" />
                     )}
+                  </div>
+                </div>
+              )}
+
+              {/* Album content images (albumA, albumB, albumC) */}
+              {gallerySubTab === "albumContent" && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
+                  <div>
+                    <h3 style={{ margin: "0 0 6px 0" }}>Ảnh nội dung trang Album (Tổng {
+                      (config.albumA || []).reduce((s, g) => s + (g.imgs?.length || 0), 0) +
+                      (config.albumB || []).reduce((s, g) => s + (g.imgs?.length || 0), 0) +
+                      (config.albumC || []).reduce((s, g) => s + (g.imgs?.length || 0), 0)
+                    } ảnh)</h3>
+                    <p style={{ color: "#94a3b8", fontSize: "0.85rem", margin: "0 0 16px 0" }}>Tất cả ảnh hiển thị trong trang &apos;Album chúng mình&apos; khi khách nhấn &apos;Xem hết ảnh&apos;. Hệ thống tự động phân chia đều thành 4 cột để giữ nguyên bố cục layout gốc.</p>
+                  </div>
+
+                  {/* Album A */}
+                  <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "16px", padding: "20px" }}>
+                    <h4 style={{ margin: "0 0 12px 0", color: "#a5b4fc" }}>📸 Khối Album A ({(config.albumA || []).reduce((s, g) => s + (g.imgs?.length || 0), 0)} ảnh)</h4>
+                    <div className={cx("gallery-row")}>
+                      {(config.albumA || []).flatMap(g => g.imgs || []).map((item, idx) => (
+                        <div key={`a-${item.id}-${idx}`} className={cx("gallery-item")}>
+                          <img src={item.img} alt={`Album A #${item.id}`} />
+                          <button
+                            className={cx("delete-icon-btn")}
+                            onClick={() => handleDeleteAlbumImage("albumA", item.id)}
+                            title="Xóa ảnh"
+                          >
+                            <FaTrash />
+                          </button>
+                          <div className={cx("gallery-item-label")}>#{item.id}</div>
+                        </div>
+                      ))}
+                      <label className={cx("add-image-box")}>
+                        <FaPlus /> Thêm ảnh
+                        <input
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={(e) => handleFileUpload(e, (url) => handleAddAlbumImage("albumA", url))}
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Album B */}
+                  <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "16px", padding: "20px" }}>
+                    <h4 style={{ margin: "0 0 12px 0", color: "#f472b6" }}>📸 Khối Album B ({(config.albumB || []).reduce((s, g) => s + (g.imgs?.length || 0), 0)} ảnh)</h4>
+                    <div className={cx("gallery-row")}>
+                      {(config.albumB || []).flatMap(g => g.imgs || []).map((item, idx) => (
+                        <div key={`b-${item.id}-${idx}`} className={cx("gallery-item")}>
+                          <img src={item.img} alt={`Album B #${item.id}`} />
+                          <button
+                            className={cx("delete-icon-btn")}
+                            onClick={() => handleDeleteAlbumImage("albumB", item.id)}
+                            title="Xóa ảnh"
+                          >
+                            <FaTrash />
+                          </button>
+                          <div className={cx("gallery-item-label")}>#{item.id}</div>
+                        </div>
+                      ))}
+                      <label className={cx("add-image-box")}>
+                        <FaPlus /> Thêm ảnh
+                        <input
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={(e) => handleFileUpload(e, (url) => handleAddAlbumImage("albumB", url))}
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Album C */}
+                  <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "16px", padding: "20px" }}>
+                    <h4 style={{ margin: "0 0 12px 0", color: "#34d399" }}>📸 Khối Album C ({(config.albumC || []).reduce((s, g) => s + (g.imgs?.length || 0), 0)} ảnh)</h4>
+                    <div className={cx("gallery-row")}>
+                      {(config.albumC || []).flatMap(g => g.imgs || []).map((item, idx) => (
+                        <div key={`c-${item.id}-${idx}`} className={cx("gallery-item")}>
+                          <img src={item.img} alt={`Album C #${item.id}`} />
+                          <button
+                            className={cx("delete-icon-btn")}
+                            onClick={() => handleDeleteAlbumImage("albumC", item.id)}
+                            title="Xóa ảnh"
+                          >
+                            <FaTrash />
+                          </button>
+                          <div className={cx("gallery-item-label")}>#{item.id}</div>
+                        </div>
+                      ))}
+                      <label className={cx("add-image-box")}>
+                        <FaPlus /> Thêm ảnh
+                        <input
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={(e) => handleFileUpload(e, (url) => handleAddAlbumImage("albumC", url))}
+                        />
+                      </label>
+                    </div>
                   </div>
                 </div>
               )}
@@ -1508,6 +1971,68 @@ export default function Editor() {
               <p className={cx("description")} style={{ color: "#94a3b8", fontSize: "0.95rem", lineHeight: "1.6" }}>
                 Sau khi bạn chỉnh sửa và lưu cấu hình cục bộ hoàn chỉnh, nhấn nút phía dưới để tự động commit thay đổi và đẩy (Push) lên kho lưu trữ GitHub của bạn. Trang web phiên bản Online sẽ được cập nhật tự động ngay lập tức (thông qua Vercel hoặc GitHub Pages).
               </p>
+
+              {!isLocal && (
+                <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.05)", borderRadius: "16px", padding: "20px", marginBottom: "24px" }}>
+                  <h3 style={{ margin: "0 0 16px 0", color: "#a5b4fc", fontSize: "1.1rem" }}>⚙️ Cấu hình GitHub API (Chạy trên Vercel)</h3>
+                  
+                  <div className={cx("nested-grid")} style={{ marginBottom: "16px" }}>
+                    <div className={cx("field")}>
+                      <label>Tài khoản GitHub (Owner)</label>
+                      <input 
+                        type="text" 
+                        value={githubOwner} 
+                        placeholder="Vd: tonynguyenIt2k"
+                        onChange={(e) => {
+                          setGithubOwner(e.target.value);
+                          localStorage.setItem("editor_github_owner", e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className={cx("field")}>
+                      <label>Tên Kho chứa (Repository)</label>
+                      <input 
+                        type="text" 
+                        value={githubRepo} 
+                        placeholder="Vd: thiepcuoi2026"
+                        onChange={(e) => {
+                          setGithubRepo(e.target.value);
+                          localStorage.setItem("editor_github_repo", e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className={cx("field")}>
+                      <label>Nhánh commit (Branch)</label>
+                      <input 
+                        type="text" 
+                        value={githubBranch} 
+                        placeholder="Vd: main"
+                        onChange={(e) => {
+                          setGithubBranch(e.target.value);
+                          localStorage.setItem("editor_github_branch", e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={cx("field")}>
+                    <label>GitHub Personal Access Token (PAT)</label>
+                    <input 
+                      type="password" 
+                      value={githubToken} 
+                      placeholder="Nhập ghp_..."
+                      onChange={(e) => {
+                        setGithubToken(e.target.value);
+                        localStorage.setItem("editor_github_token", e.target.value);
+                      }}
+                    />
+                    <span className={cx("helper-text")}>
+                      Token sẽ được lưu an toàn trong trình duyệt của bạn (localStorage) và chỉ gửi trực tiếp tới GitHub REST API. 
+                      <a href="https://github.com/settings/tokens/new?scopes=repo" target="_blank" rel="noopener noreferrer" style={{ color: "#38bdf8", marginLeft: "4px", textDecoration: "underline" }}>Tạo Token ở đây</a> (yêu cầu quyền <code>repo</code>).
+                    </span>
+                  </div>
+                </div>
+              )}
 
               <button 
                 onClick={handleGitSync} 
