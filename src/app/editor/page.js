@@ -32,24 +32,33 @@ export default function Editor() {
   const [albumImages, setAlbumImages] = useState([]);
   const [finalImages, setFinalImages] = useState([]);
 
+  const [isLocal, setIsLocal] = useState(true);
+
   useEffect(() => {
-    fetchConfig();
+    // Kiểm tra xem có đang chạy ở localhost không
+    if (typeof window !== "undefined") {
+      const hostname = window.location.hostname;
+      const localHost = hostname === "localhost" || hostname === "127.0.0.1";
+      setIsLocal(localHost);
+      if (localHost) {
+        fetchConfig();
+      }
+    }
   }, []);
 
   const fetchConfig = async () => {
     try {
       setLoading(true);
       const res = await fetch("/api/config");
-      const data = await res.json();
-      if (res.ok) {
-        setConfig(data);
-        setAlbumImages(data.albumSection?.images || []);
-        setFinalImages(data.finalSection?.images || []);
-      } else {
-        showError("Không thể tải cấu hình: " + (data.error || "Lỗi không xác định"));
+      if (!res.ok) {
+        throw new Error("Không thể tải API config");
       }
+      const data = await res.json();
+      setConfig(data);
+      setAlbumImages(data.albumSection?.images || []);
+      setFinalImages(data.finalSection?.images || []);
     } catch (err) {
-      showError("Không thể kết nối API: " + err.message);
+      showError("Không thể kết nối API cấu hình: " + err.message);
     } finally {
       setLoading(false);
     }
@@ -171,6 +180,32 @@ export default function Editor() {
       return copy;
     });
   };
+
+  if (!isLocal) {
+    return (
+      <div className={cx("editor-container")} style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
+        <div style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "40px", maxWidth: "600px", textAlign: "center", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}>
+          <h1 style={{ background: "linear-gradient(135deg, #a78bfa 0%, #ec4899 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontSize: "1.8rem", fontWeight: "800", marginBottom: "20px" }}>
+            Trình Chỉnh Sửa Bảo Mật <FaHeart style={{ color: "#ec4899" }} />
+          </h1>
+          <p style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: "1.6", marginBottom: "24px" }}>
+            Để bảo mật thông tin và quyền riêng tư của bạn, <strong>Trình Chỉnh Sửa (Editor)</strong> chỉ hoạt động ngoại tuyến dưới máy tính cá nhân (Localhost).
+          </p>
+          <div style={{ background: "rgba(99, 102, 241, 0.05)", border: "1px solid rgba(99, 102, 241, 0.15)", borderRadius: "8px", padding: "16px", marginBottom: "24px", color: "#818cf8", fontSize: "0.95rem" }}>
+            <strong>👉 Hướng dẫn chỉnh sửa:</strong>
+            <ol style={{ textAlign: "left", margin: "10px 0 0 20px", lineHeight: "1.5" }}>
+              <li>Mở Terminal trên máy tính của bạn ở thư mục dự án.</li>
+              <li>Chạy lệnh: <code style={{ background: "rgba(0,0,0,0.3)", padding: "2px 6px", borderRadius: "4px", color: "#f43f5e" }}>npm run dev</code></li>
+              <li>Truy cập địa chỉ: <a href="http://localhost:3000/editor" style={{ color: "#38bdf8", textDecoration: "underline", fontWeight: "bold" }}>http://localhost:3000/editor</a> để chỉnh sửa và tự động đẩy lên GitHub.</li>
+            </ol>
+          </div>
+          <a href="./" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)", color: "white", padding: "10px 24px", borderRadius: "8px", textDecoration: "none", fontWeight: "600" }}>
+            <FaArrowLeft /> Quay lại xem Thiệp cưới
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
