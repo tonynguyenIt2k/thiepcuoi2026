@@ -926,6 +926,12 @@ export default function Editor() {
                 >
                   Ảnh bìa trang Album
                 </button>
+                <button 
+                  className={cx("subtab-btn", gallerySubTab === "guestbook" && "active")}
+                  onClick={() => setGallerySubTab("guestbook")}
+                >
+                  Ảnh khối Lưu bút
+                </button>
               </div>
 
               {/* Core Gallery images */}
@@ -1099,6 +1105,46 @@ export default function Editor() {
                     {config.albumPage?.bottomImage && (
                       <img src={config.albumPage.bottomImage} className={cx("preview-thumbnail")} alt="Album Bottom" />
                     )}
+                  </div>
+                </div>
+              )}
+
+              {/* Guestbook section cover */}
+              {gallerySubTab === "guestbook" && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                  <h3 style={{ margin: "0" }}>Ảnh đại diện khối Sổ Lưu Bút (Guestbook Cover Image)</h3>
+                  <p style={{ color: "#94a3b8", fontSize: "0.85rem", margin: "0" }}>Tấm ảnh hiển thị ở khối Lưu bút trên trang chủ (bức ảnh nụ hôn ngọt ngào).</p>
+                  
+                  <div className={cx("field")}>
+                    <label>Ảnh hiển thị khối Lưu bút</label>
+                    <div className={cx("file-upload-block")}>
+                      <input 
+                        type="text" 
+                        value={config.guestbookSection?.image || ""}
+                        onChange={(e) => setNestedVal(["guestbookSection", "image"], e.target.value)}
+                      />
+                      <label className={cx("upload-label")}>
+                        <FaUpload /> Tải ảnh
+                        <input 
+                          type="file" 
+                          accept="image/*" 
+                          onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["guestbookSection", "image"], url), "image", config.guestbookSection?.image)}
+                        />
+                      </label>
+                    </div>
+                    {config.guestbookSection?.image && (
+                      <img src={config.guestbookSection.image} className={cx("preview-thumbnail")} alt="Guestbook Cover" />
+                    )}
+                  </div>
+
+                  <div className={cx("field")}>
+                    <label>Ngày kỷ niệm hiển thị trên Lưu bút (Văn bản)</label>
+                    <input 
+                      type="text" 
+                      placeholder="Vd: 12/12/2024"
+                      value={config.guestbookSection?.time || ""}
+                      onChange={(e) => setNestedVal(["guestbookSection", "time"], e.target.value)}
+                    />
                   </div>
                 </div>
               )}
