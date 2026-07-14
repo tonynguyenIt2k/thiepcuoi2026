@@ -1,0 +1,318 @@
+{
+  "weddingInfo": [
+    {
+      "time": {
+        "date": "22/12",
+        "year": "2024",
+        "time": "11:00",
+        "full": "Chủ nhật, Ngày 22 Tháng 12 năm 2024"
+      },
+      "address": "Tổ 23A , xã tân lập , huyện đồng phú , tỉnh bình phước",
+      "street": "Tổ 23A , xã tân lập , huyện đồng phú , tỉnh bình phước",
+      "phone": "0375 889 827",
+      "posision": "bottom left"
+    }
+  ],
+  "daysInMonth": [
+    {
+      "title": "mon",
+      "days": [
+        0,
+        2,
+        9,
+        16,
+        23,
+        30
+      ]
+    },
+    {
+      "title": "tue",
+      "days": [
+        0,
+        3,
+        10,
+        17,
+        24,
+        31
+      ]
+    },
+    {
+      "title": "wed",
+      "days": [
+        0,
+        4,
+        11,
+        18,
+        25,
+        0
+      ]
+    },
+    {
+      "title": "thu",
+      "days": [
+        0,
+        5,
+        12,
+        19,
+        26,
+        0
+      ]
+    },
+    {
+      "title": "fri",
+      "days": [
+        0,
+        6,
+        13,
+        20,
+        27,
+        0
+      ]
+    },
+    {
+      "title": "sat",
+      "days": [
+        0,
+        7,
+        14,
+        21,
+        27,
+        0
+      ]
+    },
+    {
+      "title": "sun",
+      "days": [
+        1,
+        8,
+        15,
+        22,
+        29,
+        0
+      ]
+    }
+  ],
+  "introSection": {
+    "mainImage": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e3",
+    "brideFirstLetter": "T",
+    "groomFirstLetter": "H"
+  },
+  "profileSection": {
+    "description": "Hôn nhân không phải là một điểm đến mà là một cuộc hành trình nơi mà hai người cùng xây dựng và phát triển",
+    "profiles": [
+      {
+        "title": "bride",
+        "name": "Trần Thị Thúy",
+        "avatar": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/bride6",
+        "images": [
+          "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/bride4",
+          "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/bride7"
+        ]
+      },
+      {
+        "title": "groom",
+        "name": "Lang Mạnh Hùng",
+        "avatar": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/groom2",
+        "images": [
+          "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/groom3",
+          "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/groom1"
+        ]
+      }
+    ]
+  },
+  "invitationSection": {
+    "imgs": [
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e7",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e4",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e6"
+    ],
+    "activeDay": 22
+  },
+  "albumSection": {
+    "images": [
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e1",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e3",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e4",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e5",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e7",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e8"
+    ]
+  },
+  "guestbookSection": {
+    "image": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e5",
+    "time": "12/12/2024"
+  },
+  "giftSection": {
+    "image": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730383598/wedding5/am3.jpg",
+    "brideBank": {
+      "name": "Trần Thị Thuý",
+      "bankName": "Vietinbank ",
+      "qr": "",
+      "bankNumber": "107880386791"
+    },
+    "groomBank": {
+      "name": "Lang Mạnh Hùng",
+      "bankName": "MB BANK",
+      "qr": "",
+      "bankNumber": "9999999996654"
+    }
+  },
+  "timerSection": {
+    "weddingTime": {
+      "year": 2024,
+      "day": 22,
+      "month": 12
+    }
+  },
+  "finalSection": {
+    "images": [
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/final1",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/final2",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/final3",
+      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/final4"
+    ]
+  },
+  "albumPage": {
+    "topImage": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/aland3",
+    "bottomImage": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/aland2",
+    "mainImage": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e1"
+  },
+  "albumA": [
+    {
+      "imgs": [
+        {
+          "id": 1,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e1"
+        },
+        {
+          "id": 2,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e4"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 3,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e3"
+        },
+        {
+          "id": 4,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e5"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 5,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e6"
+        },
+        {
+          "id": 6,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e7"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 7,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e8"
+        },
+        {
+          "id": 8,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/groom3"
+        }
+      ]
+    }
+  ],
+  "albumB": [
+    {
+      "imgs": [
+        {
+          "id": 9,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e9"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 10,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e13"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 11,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e10"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 12,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e11"
+        }
+      ]
+    }
+  ],
+  "albumC": [
+    {
+      "imgs": [
+        {
+          "id": 13,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e15"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 14,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e14"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 15,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e16"
+        }
+      ]
+    },
+    {
+      "imgs": [
+        {
+          "id": 16,
+          "img": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e17"
+        }
+      ]
+    }
+  ],
+  "WISH_API_LINK": "",
+  "musicUrl": "",
+  "metaData": {
+    "main": {
+      "title": "Báo Hỉ Hùng - Thúy | Kính Mời",
+      "graphImage": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/land.jpg"
+    },
+    "wish": {
+      "title": "Tất cả lời chúc dành cho Hùng - Thúy",
+      "graphImage": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/am11.jpg"
+    },
+    "invitation": {
+      "title": "Báo Hỉ | Form Nhập Tên",
+      "graphImage": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730394150/wedding5_1/a3.jpg"
+    },
+    "album": {
+      "title": "Album của Hùng - Thúy`",
+      "graphImage": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/final3.jpg"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import { useEffect, useRef, useContext } from "react";
 import sound from "@/app/static/sound.mp3";
 import { MultiContext } from "@/app/context";
+import { musicUrl } from "@/app/configs/ui";
 
 const cx = classNames.bind(styles);
 
@@ -34,9 +35,10 @@ function Disk() {
       className={cx("music", isOpenMusic && "rotate")}
       onClick={handleOpenAudio}
     >
-      <audio src={sound} ref={ref} />
+      <audio src={musicUrl || sound} ref={ref} />
     </div>
   );
 }
 
 export default Disk;
+

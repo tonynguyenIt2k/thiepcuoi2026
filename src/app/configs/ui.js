@@ -1,14 +1,10 @@
 import images from "../images";
+import uiData from "./ui.json";
 
-const WISH_API_LINK = ""; // use mock api
-const cdnLink =
-  "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5";
+const WISH_API_LINK = uiData.WISH_API_LINK !== undefined ? uiData.WISH_API_LINK : "";
+const musicUrl = uiData.musicUrl || "";
 
-// common
-
-// config Confetti
-
-const configConfetti = {
+const configConfetti = uiData.configConfetti || {
   angle: "188",
   spread: 360,
   startVelocity: "50",
@@ -22,308 +18,38 @@ const configConfetti = {
   colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
 };
 
-const weddingInfo = [
-  {
-    time: {
-      date: "22/12",
-      year: "2024",
-      time: "11:00",
-      full: "Chủ nhật, Ngày 22 Tháng 12 năm 2024",
-    },
-    address: "Tổ 23A , xã tân lập , huyện đồng phú , tỉnh bình phước",
-    street: "Tổ 23A , xã tân lập , huyện đồng phú , tỉnh bình phước",
-    phone: "0375 889 827",
-    posision: "bottom left",
-  },
-];
-
-// December
-const daysInMonth = [
-  {
-    title: "mon",
-    days: [0, 2, 9, 16, 23, 30],
-  },
-  {
-    title: "tue",
-    days: [0, 3, 10, 17, 24, 31],
-  },
-  {
-    title: "wed",
-    days: [0, 4, 11, 18, 25, 0],
-  },
-  {
-    title: "thu",
-    days: [0, 5, 12, 19, 26, 0],
-  },
-  {
-    title: "fri",
-    days: [0, 6, 13, 20, 27, 0],
-  },
-  {
-    title: "sat",
-    days: [0, 7, 14, 21, 27, 0],
-  },
-  {
-    title: "sun",
-    days: [1, 8, 15, 22, 29, 0],
-  },
-];
-
-// invitation intro (first section)
-const introSection = {
-  mainImage:
-    "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e3",
-  brideFirstLetter: "T",
-  groomFirstLetter: "H",
-};
-
-// profile section
-
-const profileSection = {
-  description:
-    "Hôn nhân không phải là một điểm đến mà là một cuộc hành trình nơi mà hai người cùng xây dựng và phát triển",
-  profiles: [
-    {
-      title: "bride",
-      name: "Trần Thị Thúy",
-      avatar: `${cdnLink}/bride6`,
-      images: [`${cdnLink}/bride4`, `${cdnLink}/bride7`],
-    },
-    {
-      title: "groom",
-      name: "Lang Mạnh Hùng",
-      avatar: `${cdnLink}/groom2`,
-      images: [`${cdnLink}/groom3`, `${cdnLink}/groom1`],
-    },
-  ],
-};
-
-// invitation section
-
-const invitationSection = {
-  imgs: [`${cdnLink}/e7`, `${cdnLink}/e4`, `${cdnLink}/e6`],
-  activeDay: 22,
-};
-
-// album section
-
-const albumSection = {
-  images: [
-    `${cdnLink}/e1`,
-    `${cdnLink}/e3`,
-    `${cdnLink}/e4`,
-    `${cdnLink}/e5`,
-    `${cdnLink}/e7`,
-    `${cdnLink}/e8`,
-  ],
-};
-
-// guestbook section
-
-const guestbookSection = {
-  image: `${cdnLink}/e5`,
-  time: "12/12/2024",
-};
-
-// gift section
+const weddingInfo = uiData.weddingInfo || [];
+const daysInMonth = uiData.daysInMonth || [];
+const introSection = uiData.introSection || {};
+const profileSection = uiData.profileSection || {};
+const invitationSection = uiData.invitationSection || {};
+const albumSection = uiData.albumSection || {};
+const guestbookSection = uiData.guestbookSection || {};
 
 const giftSection = {
-  image:
-    "https://res.cloudinary.com/do6sozxbo/image/upload/v1730383598/wedding5/am3.jpg",
+  image: uiData.giftSection?.image || "https://res.cloudinary.com/do6sozxbo/image/upload/v1730383598/wedding5/am3.jpg",
   brideBank: {
-    name: "Trần Thị Thuý",
-    bankName: "Vietinbank ",
-    qr: images.qr2.default.src,
-    bankNumber: "107880386791",
+    name: uiData.giftSection?.brideBank?.name || "Trần Thị Thuý",
+    bankName: uiData.giftSection?.brideBank?.bankName || "Vietinbank ",
+    qr: uiData.giftSection?.brideBank?.qr || images.qr2.default.src,
+    bankNumber: uiData.giftSection?.brideBank?.bankNumber || "107880386791",
   },
   groomBank: {
-    name: "Lang Mạnh Hùng",
-    bankName: "MB BANK",
-    qr: images.qr.default.src,
-    bankNumber: "9999999996654",
+    name: uiData.giftSection?.groomBank?.name || "Lang Mạnh Hùng",
+    bankName: uiData.giftSection?.groomBank?.bankName || "MB BANK",
+    qr: uiData.giftSection?.groomBank?.qr || images.qr.default.src,
+    bankNumber: uiData.giftSection?.groomBank?.bankNumber || "9999999996654",
   },
 };
 
-// timer
-const timerSection = {
-  weddingTime: {
-    year: 2024,
-    day: 22,
-    month: 12,
-  },
-};
-
-// final section
-
-const finalSection = {
-  images: [
-    `${cdnLink}/final1`,
-    `${cdnLink}/final2`,
-    `${cdnLink}/final3`,
-    `${cdnLink}/final4`,
-  ],
-};
-
-// Album Page
-
-const albumPage = {
-  topImage: `${cdnLink}/aland3`,
-  bottomImage: `${cdnLink}/aland2`,
-  mainImage: `${cdnLink}/e1`,
-};
-
-const albumA = [
-  {
-    imgs: [
-      {
-        id: 1,
-        img: `${cdnLink}/e1`,
-      },
-
-      {
-        id: 2,
-        img: `${cdnLink}/e4`,
-      },
-    ],
-  },
-
-  {
-    imgs: [
-      {
-        id: 3,
-        img: `${cdnLink}/e3`,
-      },
-      {
-        id: 4,
-        img: `${cdnLink}/e5`,
-      },
-    ],
-  },
-
-  {
-    imgs: [
-      {
-        id: 5,
-        img: `${cdnLink}/e6`,
-      },
-      {
-        id: 6,
-        img: `${cdnLink}/e7`,
-      },
-    ],
-  },
-
-  {
-    imgs: [
-      {
-        id: 7,
-        img: `${cdnLink}/e8`,
-      },
-      {
-        id: 8,
-        img: `${cdnLink}/groom3`,
-      },
-    ],
-  },
-];
-
-const albumB = [
-  {
-    imgs: [
-      {
-        id: 9,
-        img: `${cdnLink}/e9`,
-      },
-    ],
-  },
-
-  {
-    imgs: [
-      {
-        id: 10,
-        img: `${cdnLink}/e13`,
-      },
-    ],
-  },
-  {
-    imgs: [
-      {
-        id: 11,
-        img: `${cdnLink}/e10`,
-      },
-    ],
-  },
-  {
-    imgs: [
-      {
-        id: 12,
-        img: `${cdnLink}/e11`,
-      },
-    ],
-  },
-];
-
-const albumC = [
-  {
-    imgs: [
-      {
-        id: 13,
-        img: `${cdnLink}/e15`,
-      },
-    ],
-  },
-  {
-    imgs: [
-      {
-        id: 14,
-        img: `${cdnLink}/e14`,
-      },
-    ],
-  },
-  {
-    imgs: [
-      {
-        id: 15,
-        img: `${cdnLink}/e16`,
-      },
-    ],
-  },
-  {
-    imgs: [
-      {
-        id: 16,
-        img: `${cdnLink}/e17`,
-      },
-    ],
-  },
-];
-
-const albums = [...albumA, ...albumB, ...albumC]; // for preview
-
-const metaData = {
-  main: {
-    title: "Báo Hỉ Hùng - Thúy | Kính Mời",
-    graphImage:
-      "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/land.jpg",
-  },
-
-  wish: {
-    title: "Tất cả lời chúc dành cho Hùng - Thúy",
-    graphImage:
-      "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/am11.jpg",
-  },
-
-  invitation: {
-    title: "Báo Hỉ | Form Nhập Tên",
-    graphImage:
-      "https://res.cloudinary.com/do6sozxbo/image/upload/v1730394150/wedding5_1/a3.jpg",
-  },
-  album: {
-    title: "Album của Hùng - Thúy`",
-    graphImage:
-      "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/final3.jpg",
-  },
-};
+const timerSection = uiData.timerSection || {};
+const finalSection = uiData.finalSection || {};
+const albumPage = uiData.albumPage || {};
+const albumA = uiData.albumA || [];
+const albumB = uiData.albumB || [];
+const albumC = uiData.albumC || [];
+const albums = [...albumA, ...albumB, ...albumC];
+const metaData = uiData.metaData || {};
 
 export {
   weddingInfo,
@@ -343,5 +69,7 @@ export {
   timerSection,
   finalSection,
   WISH_API_LINK,
+  musicUrl,
   metaData,
 };
+
