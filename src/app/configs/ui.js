@@ -3,6 +3,8 @@ import uiData from "./ui.json";
 
 const WISH_API_LINK = uiData.WISH_API_LINK !== undefined ? uiData.WISH_API_LINK : "";
 const musicUrl = uiData.musicUrl || "";
+const invitationDomain = uiData.invitationDomain || "https://thiep-cuoi-hung-thuy.vercel.app";
+
 
 const configConfetti = uiData.configConfetti || {
   angle: "188",
@@ -70,6 +72,7 @@ export {
   finalSection,
   WISH_API_LINK,
   musicUrl,
+  invitationDomain,
   metaData,
 };
 

@@ -102,40 +102,37 @@
     "profiles": [
       {
         "title": "bride",
-        "name": "Trần Thị Thúy",
-        "avatar": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/bride6",
+        "name": "Văn Thị Thu Trang",
+        "avatar": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784051699817_photo_5_2026-07-15_00-54-33.jpg",
         "images": [
-          "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/bride4",
-          "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/bride7"
+          "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784051728574_photo_4_2026-07-15_00-54-33.jpg",
+          "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784051751335_photo_2_2026-07-15_00-54-33.jpg"
         ]
       },
       {
         "title": "groom",
-        "name": "Lang Mạnh Hùng",
-        "avatar": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/groom2",
+        "name": "Triệu Quang Vinh",
+        "avatar": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784051799383_photo_6_2026-07-15_00-54-33.jpg",
         "images": [
-          "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/groom3",
-          "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/groom1"
+          "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784051845933_photo_3_2026-07-15_00-54-33.jpg",
+          "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784051867073_photo_1_2026-07-15_00-54-33.jpg"
         ]
       }
     ]
   },
   "invitationSection": {
     "imgs": [
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e7",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e4",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e6"
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052123121_photo_4_2026-07-15_00-54-33.jpg",
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052127935_photo_2_2026-07-15_00-54-33.jpg",
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052137599_photo_5_2026-07-15_00-54-33.jpg"
     ],
     "activeDay": 22
   },
   "albumSection": {
     "images": [
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e1",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e3",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e4",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e5",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e7",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e8"
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784051979839_photo_1_2026-07-15_00-54-33.jpg",
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052050955_photo_5_2026-07-15_00-54-33.jpg",
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052057867_photo_6_2026-07-15_00-54-33.jpg"
     ]
   },
   "guestbookSection": {
@@ -143,18 +140,18 @@
     "time": "12/12/2024"
   },
   "giftSection": {
-    "image": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730383598/wedding5/am3.jpg",
+    "image": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052308694_photo_3_2026-07-15_00-54-33.jpg",
     "brideBank": {
-      "name": "Trần Thị Thuý",
+      "name": "Văn Thị Thu Trang",
       "bankName": "Vietinbank ",
       "qr": "",
-      "bankNumber": "107880386791"
+      "bankNumber": "update"
     },
     "groomBank": {
-      "name": "Lang Mạnh Hùng",
+      "name": "Triệu Quang VInh",
       "bankName": "MB BANK",
       "qr": "",
-      "bankNumber": "9999999996654"
+      "bankNumber": "update"
     }
   },
   "timerSection": {
@@ -166,16 +163,16 @@
   },
   "finalSection": {
     "images": [
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/final1",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/final2",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/final3",
-      "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/final4"
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052092903_photo_5_2026-07-15_00-54-33.jpg",
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052097721_photo_2_2026-07-15_00-54-33.jpg",
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052102529_photo_3_2026-07-15_00-54-33.jpg",
+      "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052108983_photo_4_2026-07-15_00-54-33.jpg"
     ]
   },
   "albumPage": {
-    "topImage": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/aland3",
-    "bottomImage": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/aland2",
-    "mainImage": "https://res.cloudinary.com/do6sozxbo/image/upload/f_auto,q_auto/v1/wedding5/e1"
+    "topImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052154103_photo_4_2026-07-15_00-54-33.jpg",
+    "bottomImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052161974_photo_6_2026-07-15_00-54-33.jpg",
+    "mainImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052146284_photo_2_2026-07-15_00-54-33.jpg"
   },
   "albumA": [
     {
@@ -295,24 +292,25 @@
       ]
     }
   ],
+  "invitationDomain": "https://thiep-cuoi-hung-thuy.vercel.app",
   "WISH_API_LINK": "",
-  "musicUrl": "",
+  "musicUrl": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052170028_leduong.mp3",
   "metaData": {
     "main": {
-      "title": "Báo Hỉ Hùng - Thúy | Kính Mời",
-      "graphImage": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/land.jpg"
+      "title": "Báo Hỉ Trang - Vinh | Kính Mời",
+      "graphImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052196689_photo_5_2026-07-15_00-54-33.jpg"
     },
     "wish": {
-      "title": "Tất cả lời chúc dành cho Hùng - Thúy",
-      "graphImage": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/am11.jpg"
+      "title": "Tất cả lời chúc dành cho Trang - Vinh",
+      "graphImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052205524_photo_1_2026-07-15_00-54-33.jpg"
     },
     "invitation": {
       "title": "Báo Hỉ | Form Nhập Tên",
-      "graphImage": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730394150/wedding5_1/a3.jpg"
+      "graphImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052212835_photo_2_2026-07-15_00-54-33.jpg"
     },
     "album": {
-      "title": "Album của Hùng - Thúy`",
-      "graphImage": "https://res.cloudinary.com/do6sozxbo/image/upload/v1730558395/wedding5/final3.jpg"
+      "title": "Album của Trang  - Vinh",
+      "graphImage": "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052218354_photo_4_2026-07-15_00-54-33.jpg"
     }
   }
 }
