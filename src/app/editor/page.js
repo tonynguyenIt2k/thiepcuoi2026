@@ -105,7 +105,20 @@ export default function Editor() {
     }
   };
 
-  const handleFileUpload = async (event, callback, type = "image") => {
+  const handleFileDelete = async (url) => {
+    if (!url) return;
+    try {
+      await fetch("/api/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url })
+      });
+    } catch (err) {
+      console.error("Lỗi khi xóa file cũ:", err);
+    }
+  };
+
+  const handleFileUpload = async (event, callback, type = "image", oldUrl = "") => {
     const file = event.target.files[0];
     if (!file) return;
 
@@ -130,6 +143,10 @@ export default function Editor() {
       });
       const data = await res.json();
       if (res.ok && data.success) {
+        // Xóa file cũ nếu có để giải phóng dung lượng Cloudflare R2
+        if (oldUrl) {
+          await handleFileDelete(oldUrl);
+        }
         callback(data.url);
         showSuccess(`Tải lên tệp ${file.name} thành công!`);
       } else {
@@ -177,6 +194,47 @@ export default function Editor() {
         current = current[path[i]];
       }
       current[path[path.length - 1]] = value;
+      return copy;
+    });
+  };
+
+  const handleDateChange = (dateString) => {
+    if (!dateString) return;
+    const daysOfWeek = [
+      "Chủ nhật",
+      "Thứ Hai",
+      "Thứ Ba",
+      "Thứ Tư",
+      "Thứ Năm",
+      "Thứ Sáu",
+      "Thứ Bảy"
+    ];
+    const dateObj = new Date(dateString);
+    const day = dateObj.getDate();
+    const month = dateObj.getMonth() + 1;
+    const year = dateObj.getFullYear();
+    const dayOfWeek = daysOfWeek[dateObj.getDay()];
+
+    const formattedDate = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}`;
+    const formattedFull = `${dayOfWeek}, Ngày ${day} Tháng ${month} năm ${year}`;
+
+    setConfig(prev => {
+      const copy = { ...prev };
+      if (!copy.weddingInfo) copy.weddingInfo = [{}];
+      if (!copy.weddingInfo[0]) copy.weddingInfo[0] = {};
+      if (!copy.weddingInfo[0].time) copy.weddingInfo[0].time = {};
+
+      copy.weddingInfo[0].time.date = formattedDate;
+      copy.weddingInfo[0].time.year = year.toString();
+      copy.weddingInfo[0].time.full = formattedFull;
+
+      // Cập nhật luôn cho bộ đếm ngược (timerSection)
+      if (!copy.timerSection) copy.timerSection = {};
+      if (!copy.timerSection.weddingTime) copy.timerSection.weddingTime = {};
+      copy.timerSection.weddingTime.year = year;
+      copy.timerSection.weddingTime.month = month;
+      copy.timerSection.weddingTime.day = day;
+
       return copy;
     });
   };
@@ -282,19 +340,30 @@ export default function Editor() {
             <div className={cx("panel")}>
               <h2>Thông tin chung Thiệp cưới</h2>
               
+              <div className={cx("field")} style={{ marginBottom: "20px" }}>
+                <label style={{ color: "#38bdf8", fontWeight: "bold" }}>📅 Chọn Ngày Làm Lễ (Bộ chọn lịch tự động)</label>
+                <input 
+                  type="date" 
+                  style={{ border: "2px solid #6366f1", background: "rgba(99,102,241,0.05)" }}
+                  onChange={(e) => handleDateChange(e.target.value)}
+                />
+              </div>
+
               <div className={cx("nested-grid")}>
                 <div className={cx("field")}>
-                  <label>Ngày làm lễ (Vd: 22/12)</label>
+                  <label>Ngày làm lễ (Văn bản)</label>
                   <input 
                     type="text" 
+                    placeholder="Chọn lịch ở trên để tự động điền"
                     value={config.weddingInfo[0]?.time?.date || ""} 
                     onChange={(e) => setNestedVal(["weddingInfo", 0, "time", "date"], e.target.value)}
                   />
                 </div>
                 <div className={cx("field")}>
-                  <label>Năm (Vd: 2024 hoặc 2026)</label>
+                  <label>Năm tổ chức</label>
                   <input 
                     type="text" 
+                    placeholder="Chọn lịch ở trên để tự động điền"
                     value={config.weddingInfo[0]?.time?.year || ""} 
                     onChange={(e) => setNestedVal(["weddingInfo", 0, "time", "year"], e.target.value)}
                   />
@@ -328,9 +397,10 @@ export default function Editor() {
               </div>
 
               <div className={cx("field")}>
-                <label>Văn bản ngày giờ đầy đủ</label>
+                <label>Văn bản ngày giờ đầy đủ (Tự động cập nhật khi chọn lịch)</label>
                 <input 
                   type="text" 
+                  placeholder="Chọn lịch ở trên để tự động điền"
                   value={config.weddingInfo[0]?.time?.full || ""} 
                   onChange={(e) => setNestedVal(["weddingInfo", 0, "time", "full"], e.target.value)}
                 />
@@ -377,7 +447,7 @@ export default function Editor() {
                     <input 
                       type="file" 
                       accept="image/*" 
-                      onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["introSection", "mainImage"], url))}
+                      onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["introSection", "mainImage"], url), "image", config.introSection?.mainImage)}
                     />
                   </label>
                 </div>
@@ -427,7 +497,7 @@ export default function Editor() {
                       <input 
                         type="file" 
                         accept="image/*" 
-                        onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["profileSection", "profiles", 0, "avatar"], url))}
+                        onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["profileSection", "profiles", 0, "avatar"], url), "image", config.profileSection?.profiles[0]?.avatar)}
                       />
                     </label>
                   </div>
@@ -458,7 +528,7 @@ export default function Editor() {
                       <input 
                         type="file" 
                         accept="image/*" 
-                        onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["profileSection", "profiles", 1, "avatar"], url))}
+                        onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["profileSection", "profiles", 1, "avatar"], url), "image", config.profileSection?.profiles[1]?.avatar)}
                       />
                     </label>
                   </div>
@@ -484,7 +554,7 @@ export default function Editor() {
                     <input 
                       type="file" 
                       accept="image/*" 
-                      onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["giftSection", "image"], url))}
+                      onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["giftSection", "image"], url), "image", config.giftSection?.image)}
                     />
                   </label>
                 </div>
@@ -532,7 +602,7 @@ export default function Editor() {
                         <input 
                           type="file" 
                           accept="image/*" 
-                          onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["giftSection", "brideBank", "qr"], url))}
+                          onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["giftSection", "brideBank", "qr"], url), "image", config.giftSection?.brideBank?.qr)}
                         />
                       </label>
                     </div>
@@ -580,7 +650,7 @@ export default function Editor() {
                         <input 
                           type="file" 
                           accept="image/*" 
-                          onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["giftSection", "groomBank", "qr"], url))}
+                          onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["giftSection", "groomBank", "qr"], url), "image", config.giftSection?.groomBank?.qr)}
                         />
                       </label>
                     </div>
@@ -610,7 +680,7 @@ export default function Editor() {
                     <input 
                       type="file" 
                       accept="audio/mp3, audio/*" 
-                      onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["musicUrl"], url), "audio")}
+                      onChange={(e) => handleFileUpload(e, (url) => setNestedVal(["musicUrl"], url), "audio", config.musicUrl)}
                     />
                   </label>
                 </div>
@@ -619,7 +689,10 @@ export default function Editor() {
                     <audio src={config.musicUrl} controls className={cx("player")} />
                     <button 
                       className={cx("remove-music-btn")}
-                      onClick={() => setNestedVal(["musicUrl"], "")}
+                      onClick={async () => {
+                        await handleFileDelete(config.musicUrl);
+                        setNestedVal(["musicUrl"], "");
+                      }}
                     >
                       Xóa nhạc tùy chỉnh (dùng mặc định)
                     </button>
@@ -668,7 +741,8 @@ export default function Editor() {
                     <img src={img} alt={`Album ${idx}`} />
                     <button 
                       className={cx("delete-icon-btn")}
-                      onClick={() => {
+                      onClick={async () => {
+                        await handleFileDelete(img);
                         setAlbumImages(prev => prev.filter((_, i) => i !== idx));
                       }}
                       title="Xóa ảnh"
