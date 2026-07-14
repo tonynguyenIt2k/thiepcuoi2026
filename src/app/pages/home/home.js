@@ -30,7 +30,9 @@ export default function Home() {
     if (searchParams.get("fbclid")) {
       window.location.href = window.location.origin + "/" + "?name=" + name;
     }
-  }, [searchParams]);
+    // Cập nhật title động dưới client
+    document.title = `Báo Hỷ Hùng - Thúy | Kính Mời ${name}`;
+  }, [searchParams, name]);
 
   const handleOpenInvitation = () => {
     setIsOpen(true);

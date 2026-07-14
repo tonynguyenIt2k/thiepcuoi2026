@@ -662,7 +662,7 @@ export default function Editor() {
               <h2>Đồng bộ với Kho lưu trữ GitHub</h2>
               <p className={cx("description")}>
                 Sau khi kiểm tra trang thiệp ở localhost và hài lòng, bạn ấn nút 
-                <strong> "Đẩy lên GitHub"</strong> để sao lưu và cập nhật trang web thiệp cưới online (Vercel/GitHub Pages...).
+                <strong> &quot;Đẩy lên GitHub&quot;</strong> để sao lưu và cập nhật trang web thiệp cưới online (Vercel/GitHub Pages...).
               </p>
 
               <button 
