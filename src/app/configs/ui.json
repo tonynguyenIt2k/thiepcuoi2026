@@ -18,50 +18,6 @@
       "title": "mon",
       "days": [
         0,
-        2,
-        9,
-        16,
-        23,
-        30
-      ]
-    },
-    {
-      "title": "tue",
-      "days": [
-        0,
-        3,
-        10,
-        17,
-        24,
-        31
-      ]
-    },
-    {
-      "title": "wed",
-      "days": [
-        0,
-        4,
-        11,
-        18,
-        25,
-        0
-      ]
-    },
-    {
-      "title": "thu",
-      "days": [
-        0,
-        5,
-        12,
-        19,
-        26,
-        0
-      ]
-    },
-    {
-      "title": "fri",
-      "days": [
-        0,
         6,
         13,
         20,
@@ -70,24 +26,68 @@
       ]
     },
     {
-      "title": "sat",
+      "title": "tue",
       "days": [
         0,
         7,
         14,
         21,
-        27,
+        28,
         0
       ]
     },
     {
-      "title": "sun",
+      "title": "wed",
       "days": [
         1,
         8,
         15,
         22,
         29,
+        0
+      ]
+    },
+    {
+      "title": "thu",
+      "days": [
+        2,
+        9,
+        16,
+        23,
+        30,
+        0
+      ]
+    },
+    {
+      "title": "fri",
+      "days": [
+        3,
+        10,
+        17,
+        24,
+        31,
+        0
+      ]
+    },
+    {
+      "title": "sat",
+      "days": [
+        4,
+        11,
+        18,
+        25,
+        0,
+        0
+      ]
+    },
+    {
+      "title": "sun",
+      "days": [
+        5,
+        12,
+        19,
+        26,
+        0,
         0
       ]
     }
@@ -126,7 +126,8 @@
       "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052127935_photo_2_2026-07-15_00-54-33.jpg",
       "https://pub-5f4d33ce597a44bf8ee640bbba36b4b1.r2.dev/1784052137599_photo_5_2026-07-15_00-54-33.jpg"
     ],
-    "activeDay": 19
+    "activeDay": 19,
+    "monthTitle": "Tháng 7"
   },
   "albumSection": {
     "images": [
