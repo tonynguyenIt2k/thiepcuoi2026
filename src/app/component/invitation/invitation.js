@@ -43,7 +43,7 @@ function Invitation() {
           <img className={cx("img")} src={invitationSection[2]} />
         </div>
       </div>
-      <Days title="Tháng 12" activeDay={invitationSection.activeDay} />
+      <Days title={invitationSection.monthTitle || "Tháng 12"} activeDay={invitationSection.activeDay} />
       <Infomation
         img={wedInfo.img}
         title={wedInfo.title}

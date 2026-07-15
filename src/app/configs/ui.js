@@ -51,7 +51,10 @@ const albumA = uiData.albumA || [];
 const albumB = uiData.albumB || [];
 const albumC = uiData.albumC || [];
 const albums = [...albumA, ...albumB, ...albumC];
-const metaData = uiData.metaData || {};
+const creator = uiData.creator || {
+  name: "Danh Tuấn",
+  link: "https://www.facebook.com/profile.php?id=100015195702096",
+};
 
 export {
   weddingInfo,
@@ -74,5 +77,6 @@ export {
   musicUrl,
   invitationDomain,
   metaData,
+  creator,
 };
 

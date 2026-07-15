@@ -528,6 +528,35 @@ export default function Editor() {
     const formattedDate = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}`;
     const formattedFull = `${dayOfWeek}, Ngày ${day} Tháng ${month} năm ${year}`;
 
+    // Tự động tạo mảng lịch 7 cột (Thứ 2 -> Chủ nhật) cho tháng được chọn
+    const columns = [
+      { title: "mon", days: [0, 0, 0, 0, 0, 0] },
+      { title: "tue", days: [0, 0, 0, 0, 0, 0] },
+      { title: "wed", days: [0, 0, 0, 0, 0, 0] },
+      { title: "thu", days: [0, 0, 0, 0, 0, 0] },
+      { title: "fri", days: [0, 0, 0, 0, 0, 0] },
+      { title: "sat", days: [0, 0, 0, 0, 0, 0] },
+      { title: "sun", days: [0, 0, 0, 0, 0, 0] }
+    ];
+
+    const totalDays = new Date(year, month, 0).getDate();
+    let currentRow = 0;
+    for (let d = 1; d <= totalDays; d++) {
+      const dateCur = new Date(year, month - 1, d);
+      const dayOfWeekCur = dateCur.getDay(); // 0: Chủ nhật, 1: Thứ 2, ...
+      const colIdx = dayOfWeekCur === 0 ? 6 : dayOfWeekCur - 1;
+      
+      // Gán ngày vào ô tương ứng trong mảng 6 dòng của cột đó
+      if (currentRow < 6) {
+        columns[colIdx].days[currentRow] = d;
+      }
+      
+      // Nếu là Chủ nhật thì sang dòng mới
+      if (dayOfWeekCur === 0) {
+        currentRow++;
+      }
+    }
+
     setConfig(prev => {
       const copy = JSON.parse(JSON.stringify(prev));
       if (!copy.weddingInfo) copy.weddingInfo = [{}];
@@ -548,6 +577,10 @@ export default function Editor() {
       // Cập nhật ngày cưới được tô đậm trên lịch tháng (invitationSection)
       if (!copy.invitationSection) copy.invitationSection = {};
       copy.invitationSection.activeDay = day;
+      copy.invitationSection.monthTitle = `Tháng ${month}`;
+
+      // Cập nhật mảng cấu trúc lịch hiển thị
+      copy.daysInMonth = columns;
 
       return copy;
     });
@@ -806,6 +839,15 @@ export default function Editor() {
                     placeholder="Vd: 22"
                     value={config.invitationSection?.activeDay || ""} 
                     onChange={(e) => setNestedVal(["invitationSection", "activeDay"], parseInt(e.target.value) || 0)}
+                  />
+                </div>
+                <div className={cx("field")}>
+                  <label>Tiêu đề tháng trên lịch (Month Title)</label>
+                  <input 
+                    type="text" 
+                    placeholder="Vd: Tháng 12 hoặc Tháng 7"
+                    value={config.invitationSection?.monthTitle || ""} 
+                    onChange={(e) => setNestedVal(["invitationSection", "monthTitle"], e.target.value)}
                   />
                 </div>
                 <div className={cx("field")}>
@@ -1959,6 +2001,29 @@ export default function Editor() {
                   {config.metaData?.album?.graphImage && (
                     <img src={config.metaData.album.graphImage} className={cx("preview-thumbnail")} alt="SEO Album" />
                   )}
+                </div>
+              </div>
+
+              {/* Creator Info Card */}
+              <div style={{ background: "rgba(255,255,255,0.01)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: "14px", padding: "24px", marginTop: "24px" }}>
+                <h3 style={{ margin: "0 0 16px 0", color: "#a5b4fc" }}>✍️ Thông tin tác giả thiệp cưới (Footer Credits)</h3>
+                <div className={cx("field")} style={{ marginBottom: "12px" }}>
+                  <label>Tên người thiết kế/người tạo</label>
+                  <input 
+                    type="text" 
+                    placeholder="Vd: Danh Tuấn"
+                    value={config.creator?.name || ""} 
+                    onChange={(e) => setNestedVal(["creator", "name"], e.target.value)}
+                  />
+                </div>
+                <div className={cx("field")}>
+                  <label>Đường dẫn liên kết (Facebook/Website)</label>
+                  <input 
+                    type="text" 
+                    placeholder="Vd: https://facebook.com/..."
+                    value={config.creator?.link || ""} 
+                    onChange={(e) => setNestedVal(["creator", "link"], e.target.value)}
+                  />
                 </div>
               </div>
             </div>

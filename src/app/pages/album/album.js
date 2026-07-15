@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import { useInView } from "framer-motion";
 import Image from "../../component/image";
 import { useRouter } from "next/navigation";
+import Disk from "@/app/component/disk";
 const cx = classNames.bind(styles);
 
 function Album() {
@@ -25,6 +26,7 @@ function Album() {
 
   return (
     <div className={cx("wrapper")} ref={viewRef}>
+      <Disk />
       <div className={cx("header")}>
         <div className={cx("back-img")}>
           <h2
