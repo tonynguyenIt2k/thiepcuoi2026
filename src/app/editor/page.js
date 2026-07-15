@@ -1713,6 +1713,21 @@ export default function Editor() {
                 <span className={cx("helper-text")}>Địa chỉ website thực tế sau khi bạn đẩy code và triển khai trực tuyến.</span>
               </div>
 
+              <div style={{ background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", borderRadius: "12px", padding: "16px", marginBottom: "24px" }}>
+                <h4 style={{ margin: "0 0 8px 0", color: "#34d399" }}>🌐 Trang tự tạo link mời dành cho Khách / Người thân</h4>
+                <p style={{ margin: "0 0 10px 0", fontSize: "0.85rem", color: "#94a3b8", lineHeight: "1.5" }}>
+                  Bạn đã có một trang web riêng công khai cho phép người thân hoặc khách tự điền tên và tạo liên kết thiệp mời:
+                </p>
+                <a 
+                  href={`${invitationDomain}/invitation`} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  style={{ color: "#60a5fa", textDecoration: "underline", fontSize: "0.9rem", fontWeight: "600" }}
+                >
+                  {invitationDomain}/invitation
+                </a>
+              </div>
+
               <div className={cx("subtabs-container")}>
                 <button 
                   className={cx("subtab-btn", inviteSubTab === "single" && "active")}
